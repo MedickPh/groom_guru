@@ -5,6 +5,8 @@ import Benefits from "./components/benefits.vue";
 import Services from "./components/services.vue"
 import Reviews from "./components/reviews.vue";
 import Consultation from "./components/consultation.vue";
+import Footer from "./components/footer.vue"
+import AppointmentPopUp from "./components/appointmentPopUp.vue";
 </script>
 
 <template>
@@ -14,6 +16,8 @@ import Consultation from "./components/consultation.vue";
   <Services/>
   <Reviews/>
   <Consultation/>
+  <Footer/>
+  <AppointmentPopUp/>
 </template>
 
 <style scoped>
