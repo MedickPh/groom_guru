@@ -95,6 +95,7 @@ onBeforeMount(() => {
         h2 {
             font-size: 5rem;
             margin-bottom: 50px;
+            text-align: center;
         }
 
         .animal_type {
@@ -106,6 +107,7 @@ onBeforeMount(() => {
                 font-size: 1.45rem;
                 margin-right: 15px;
                 font-weight: 600;
+                background: transparent;
             }
 
             .active {
@@ -121,11 +123,13 @@ onBeforeMount(() => {
             justify-content: space-evenly;
             margin: 15px;
 
+
             button {
                 border: none;
                 padding: 10px 15px;
                 margin: 5px 10px;
                 font-size: 1.45rem;
+                background: transparent;
             }
 
             .active_button {
@@ -154,6 +158,7 @@ onBeforeMount(() => {
                 span {
                     display: flex;
                     flex-direction: row;
+                    width: 100%;
 
                     svg {
                         width: 25px;
@@ -161,11 +166,17 @@ onBeforeMount(() => {
                     }
 
                     p {
+                        width: 100%;
+                        max-width: 100%;
                         font-size: 1.25rem;
                     }
                 }
 
                 p {
+                    width: 100%;
+                    min-width: 100px;
+                    max-width: 100px;
+                    margin-left: 25px;
                     font-size: 1.25rem;
                 }
             }
@@ -200,6 +211,31 @@ onBeforeMount(() => {
             max-width: 550px;
             height: 100%;
             max-height: 610px;
+        }
+    }
+}
+
+@media screen and (max-width: 980px) {
+    .services_wrapper .services_block img {
+        display: none;
+    }
+
+    .services_wrapper .header .services_menu {
+        overflow-x: scroll;
+    }
+
+    .services_wrapper .header .services_menu :last-child {
+        width: 100%;
+        min-width: 250px;
+        max-width: 250px
+    }
+
+    .services_wrapper .services_block .services {
+        .price_block{
+            font-size: 1.25rem;
+        }
+        .service_list p {
+            margin-left: 0;
         }
     }
 }

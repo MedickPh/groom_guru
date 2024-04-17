@@ -116,7 +116,7 @@ export const generalServices = {
                         servicePrice: 100 
                     },
                     analCleaning: {
-                        serviceName:'Догляд за інтимними зонами(параанальні залози)',
+                        serviceName:'Догляд за інтимними зонами (параанальні залози)',
                         servicePrice: 100 
                     },
                     clawing: {
