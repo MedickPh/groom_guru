@@ -242,16 +242,21 @@ const isShowMobileMenu = ref(false)
 
         .menu-button {
             display: inline-block;
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
             position: relative;
             cursor: pointer;
+
+            svg {
+                width: 35px;
+                height: 35px;
+            }
         }
 
         .close_button {
             svg {
-                width: 50px;
-                height: 50px;
+                width: 35px;
+                height: 35px;
                 fill: var(--orange_color);
             }
         }

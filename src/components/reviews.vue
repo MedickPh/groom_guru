@@ -157,7 +157,7 @@ window.addEventListener('resize', () => {
         margin: 25px 0;
     }
     .carousel__item {
-        margin: 20px 10px;
+        margin: 20px;
     }
 }
 </style>

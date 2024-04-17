@@ -48,7 +48,7 @@
     margin-top: 300px;
 
     h2 {
-        font-size: 4rem;
+        font-size: 3rem;
         text-align: center;
     }
 
@@ -57,7 +57,7 @@
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
-        margin-top: 85px;
+        margin-top: 15px;
 
         .img_wrapper {
             width: 100%;
