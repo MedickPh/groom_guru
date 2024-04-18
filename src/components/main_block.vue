@@ -3,7 +3,7 @@
         <div class="text_block">
             <h1 class="neucha">Грумінг-салон <br>GroomGuru</h1>
             <p class="montserrat_medium">Ми знайдемо підхід до Ваших пухнастих улюбленців</p>
-            <button class="montserrat_medium">Записатись зараз</button>
+            <button class="montserrat_medium" @click="$emit('open')">Записатись зараз</button>
         </div>
         <div class="img_block">
             <img src="../assets/1.png" alt="Main picture with beautiful dog">

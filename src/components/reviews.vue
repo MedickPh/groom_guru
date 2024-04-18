@@ -44,13 +44,10 @@ function getScreenSize() {
         isShowNavButtons.value = false
     }
     if (window.innerWidth <= 790) {
-        console.log('1');
         return 1
     } else if (window.innerWidth <= 970) { 
-        console.log('2');
         return 2
     } else { 
-        console.log(3);
         return 3
     }
 }

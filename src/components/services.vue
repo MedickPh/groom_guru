@@ -47,7 +47,7 @@
                     <p>{{ item.title }}</p>
                     <p>{{ item.price }}</p>
                 </div>
-                <button>Записатись зараз</button>
+                <button @click="$emit('open')">Записатись зараз</button>
             </div>
             <img src="../assets/4.png" alt="Happy dog">
         </div>
