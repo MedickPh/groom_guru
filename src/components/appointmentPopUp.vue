@@ -130,7 +130,8 @@
                         </div>
                         <div class="choose_breed">
                             <p class="montserrat_medium">Порода</p>
-                            <select class="montserrat_medium" name="" id="" placeholder="choose" v-model="animalData.breed">
+                            <select class="montserrat_medium" name="" id="" placeholder="choose"
+                                v-model="animalData.breed">
                                 <option value="null" disabled> Choose anymal type</option>
                                 <template v-for="(item, key) in breeds[animalData.animalType]" :key="key">
                                     <option :value="key">{{ item }}</option>
@@ -144,13 +145,17 @@
                 </template>
                 <template v-if="step === 2">
                     <div class="choose_appointment">
-                        <div class="choose_block">
+                        <div class="choose_block choose_service_block">
                             <p>Оберіть послугу</p>
-                            <template v-for="(item, key) in generalServices[animalData.animalType]['services_prise'][animalData.breed]" :key="key">
-                                <input type="radio"  :id="'radio_' + key" v-model="selectedService">
-                                <label name="service" :for="'radio_' + key"> {{ item.serviceName }}</label>
-                            </template>
-                            
+                            <div class="service"
+                                v-for="(item, key) in services_by_breed[animalData.animalType][animalData.breed]"
+                                :key="key">
+                                <div class="service_name">
+                                    <span class="checkpoint"></span>
+                                    <p>{{ item.serviceName }}</p>
+                                </div>
+                                <p>{{ item.servicePrice }} грн</p>
+                            </div>
                         </div>
                     </div>
                     <div class="axiliary_block">
@@ -182,9 +187,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { generalServices } from '../data/general_services'
-import { breeds } from '../data/breeds'
+import { ref } from 'vue';
+import { breeds } from '../data/breeds';
+import { services_by_breed } from '../data/services_by_breed.js'
 
 
 const step = ref(1)
@@ -198,7 +203,6 @@ const changeAnimalType = (type) => {
     animalData.value.animalType = type
 }
 
-console.log(generalServices[animalData.animalType]);
 
 
 
@@ -403,9 +407,42 @@ console.log(generalServices[animalData.animalType]);
                 padding: 15px 25px;
                 font-size: 1.2rem;
 
+                .choose_service_block {
+                    height: 100%;
+                    max-height: 500px;
+                    overflow-y: scroll;
+                }
+
+                /* Стили для полосы прокрутки в Firefox */
+                .choose_service_block {
+                    scrollbar-width: thin;
+                    scrollbar-color: var(--yellow_color) #f1f1f1;
+                }
+
+                /* Стили для полосы прокрутки в WebKit браузерах (Chrome, Safari) */
+                .choose_service_block::-webkit-scrollbar {
+                    width: 12px;
+                    
+                }
+
+                .choose_service_block::-webkit-scrollbar-track {
+                    background-color: var(--yellow_color);
+                }
+
+                .choose_service_block::-webkit-scrollbar-thumb {
+                    background-color: var(--yellow_color);
+                    border-radius: 6px;
+                }
+
+                .choose_service_block::-webkit-scrollbar-thumb:hover {
+                    background-color: var(--yellow_color);;
+                }
+
+
                 .choose_block {
 
                     width: 100%;
+
 
                     span {
                         display: flex;
@@ -418,6 +455,7 @@ console.log(generalServices[animalData.animalType]);
                             border: 1px solid var(--yellow_color);
                             border-radius: 16px;
                             padding: 10px 35px;
+                            background-color: transparent
                         }
 
                         .button_selected {
@@ -425,6 +463,7 @@ console.log(generalServices[animalData.animalType]);
                             border-radius: 16px;
                             padding: 10px 35px;
                             color: var(--yellow_color);
+                            background-color: transparent
                         }
                     }
                 }
@@ -454,6 +493,7 @@ console.log(generalServices[animalData.animalType]);
             width: 100px;
             margin: 0 auto;
             font-size: 1.2rem;
+            background-color: transparent
         }
 
         .send {
