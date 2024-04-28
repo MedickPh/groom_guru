@@ -128,15 +128,18 @@
                                     @click="changeAnimalType('cats')">Кішка</button>
                             </span>
                         </div>
-                        <div class="choose_breed">
+                        <div class="choose_breed" v-if="animalData.animalType !== ''">
                             <p class="montserrat_medium">Порода</p>
-                            <select class="montserrat_medium" name="" id="" placeholder="choose"
-                                v-model="animalData.breed">
-                                <option value="null" disabled> Choose anymal type</option>
-                                <template v-for="(item, key) in breeds[animalData.animalType]" :key="key">
-                                    <option :value="key">{{ item }}</option>
-                                </template>
-                            </select>
+                            <div class="brand_select">
+                                <input type="text" v-model="searchTerm" @click="filterBreeds" @input="filterBreeds"
+                                    required placeholder="Введіть назву породи" class="standard_input" />
+                                <ul v-if="showDropdown">
+                                    <li v-for="(breed, key) in filteredBreeds" :key="key" @click="selectBreed(breed)">
+                                        {{ breed.name }}
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                     <div class="axiliary_block">
@@ -147,14 +150,13 @@
                     <div class="choose_appointment">
                         <div class="choose_block choose_service_block">
                             <p>Оберіть послугу</p>
-                            <div class="service"
-                                v-for="(item, key) in services_by_breed[animalData.animalType][animalData.breed]"
-                                :key="key">
+                            <div class="service" v-for="(item, key) in animalData.breed.services" :key="key"
+                                @click="setService(item, key)">
                                 <div class="service_name">
-                                    <span class="checkpoint"></span>
+                                    <span :class="isChosen === key ? 'checkpoint_active': 'checkpoint'"></span>
                                     <p>{{ item.serviceName }}</p>
                                 </div>
-                                <p>{{ item.servicePrice }} грн</p>
+                                <p>від {{ item.servicePrice }} грн</p>
                             </div>
                         </div>
                     </div>
@@ -162,21 +164,14 @@
                         <img src="../assets/6.png" alt="">
                     </div>
                 </template>
-                <!-- <div class="axiliary_block">
-                    <template v-else-if="step === 2">
-                        <img src="../assets/6.png" alt="">
-                    </template>
-                    <template v-else-if="step === 3">
-                        <div class="time">
-
-                        </div>
-                    </template>
-                    <template v-else>
-                        <div class="summary_data">
-
-                        </div>
-                    </template>
-                </div> -->
+                <template v-if="step === 3">
+                    <div class="choose_appointment">
+                        
+                    </div>
+                    <div class="axiliary_block">
+                        
+                    </div>
+                </template>
             </div>
             <button class="next" v-if="step === 1" @click="step++">Далі</button>
             <button class="next" v-else-if="step === 2" @click="step++">Далі</button>
@@ -187,24 +182,58 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { breeds } from '../data/breeds';
+import { ref, computed } from 'vue';
 import { services_by_breed } from '../data/services_by_breed.js'
 
-
 const step = ref(1)
+const showDropdown = ref(false);
+const searchTerm = ref('')
+const isChosen = ref(null)
 const animalData = ref({
     animalType: '',
-    breed: null
+    breed: null,
+    service: null,
+    date: null,
+    userName: null,
+    userPhone: null,
+    patName: null
 })
-const selectedService = ref()
+
+const filterBreeds = () => {
+    if (searchTerm.value.trim() === '') {
+        showDropdown.value = false;
+        return
+    }
+    const animalType = animalData.value.animalType;
+    const animalBreeds = services_by_breed[animalType];
+    const filteredBreeds = Object.values(animalBreeds).filter(breed => {
+        return breed.name.toLowerCase().includes(searchTerm.value.toLowerCase());
+    });
+
+    showDropdown.value = true;
+    return filteredBreeds;
+};
+
+const selectBreed = (breed) => {
+    searchTerm.value = breed.name
+    animalData.value.breed = breed
+    showDropdown.value = false;
+};
+
+const filteredBreeds = computed(filterBreeds);
+
 
 const changeAnimalType = (type) => {
     animalData.value.animalType = type
 }
 
+const setService = (item, key) => {
+    isChosen.value = key
+    animalData.value.service = item.serviceName;
 
-
+    console.log(animalData.value);
+}
+console.log(animalData.value)
 
 </script>
 
@@ -224,7 +253,7 @@ const changeAnimalType = (type) => {
 
     .appointment_block {
         width: 100%;
-        max-width: 1000px;
+        max-width: 1250px;
         border: 2px solid var(--yellow_color);
         border-radius: 32px;
         padding: 15px 25px;
@@ -408,36 +437,46 @@ const changeAnimalType = (type) => {
                 font-size: 1.2rem;
 
                 .choose_service_block {
-                    height: 100%;
-                    max-height: 500px;
-                    overflow-y: scroll;
-                }
 
-                /* Стили для полосы прокрутки в Firefox */
-                .choose_service_block {
-                    scrollbar-width: thin;
-                    scrollbar-color: var(--yellow_color) #f1f1f1;
-                }
+                    .service {
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: nowrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        border-radius: 10px;
+                        padding: 5px 10px;
+                        margin: 5px;
 
-                /* Стили для полосы прокрутки в WebKit браузерах (Chrome, Safari) */
-                .choose_service_block::-webkit-scrollbar {
-                    width: 12px;
-                    
-                }
+                        .service_name {
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;
+                            align-items: center;
 
-                .choose_service_block::-webkit-scrollbar-track {
-                    background-color: var(--yellow_color);
-                }
+                            .checkpoint {
+                                width: 20px;
+                                height: 20px;
+                                border: 1px solid var(--yellow_color);
+                                border-radius: 50%;
+                                margin-right: 15px;
+                            }
 
-                .choose_service_block::-webkit-scrollbar-thumb {
-                    background-color: var(--yellow_color);
-                    border-radius: 6px;
-                }
+                            .checkpoint_active {
+                                width: 20px;
+                                height: 20px;
+                                border: 1px solid var(--orange_color);
+                                border-radius: 50%;
+                                margin-right: 15px;
+                                background-color: var(--yellow_color);
+                            }
+                        }
+                    }
 
-                .choose_service_block::-webkit-scrollbar-thumb:hover {
-                    background-color: var(--yellow_color);;
+                    .service:hover {
+                        background-color: #f6ad024d;
+                    }
                 }
-
 
                 .choose_block {
 
@@ -470,11 +509,39 @@ const changeAnimalType = (type) => {
 
                 .choose_breed {
 
-                    select {
-                        width: 100%;
-                        border: 1px solid var(--orange_color);
-                        border-radius: 10px;
-                        padding: 5px 10px;
+                    .brand_select {
+                        border: 2px solid var(--orange_color);
+                        background-color: rgb(255, 255, 255);
+                        border-radius: 8px;
+                        width: 300px;
+                        margin-top: 15px;
+                        padding: 0 10px;
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+
+                        input {
+                            outline: none;
+                            border: transparent;
+                            width: 100%;
+                            padding: 5px 10px;
+                        }
+
+                        ul {
+                            list-style-type: none;
+                            padding: 5px 0;
+                            margin: 0;
+                        }
+
+                        li {
+                            cursor: pointer;
+                            padding: 0 10px;
+                        }
+
+                        li:hover {
+                            background-color: var(--yellow_color);
+                            border-radius: 8px;
+                        }
                     }
                 }
             }
