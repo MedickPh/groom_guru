@@ -2,7 +2,7 @@
     <div class="reviews_wrapper">
         <h2>Відгуки</h2>
         <div class="slider">
-            <Carousel :items-to-show="slidesToShow" :autoplay="3500" :wrap-around="true" :mouseDrag="true"
+            <Carousel :items-to-show="slidesToShow" :autoplay="false" :wrap-around="true" :mouseDrag="true"
                 :touchDrag="true" :pauseAutoplayOnHover="false" :transition="700">
                 <Slide v-for="item in reviews" :key="item">
                     <div class="carousel__item">
@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                             <div class="review-text-container">
-                                <p class="montserrat_medium">{{ item.test }}</p>
+                                <p class="montserrat_medium">{{ item.text }}</p>
                             </div>
                         </div>
                     </div>

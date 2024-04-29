@@ -114,12 +114,12 @@
                     </p>
                 </div>
             </div>
-            <div class="choose_appointment_wrapper">
+            <div :class="{ 'choose_appointment_wrapper': true, 'date_wrapper': step === 3 }">
                 <template v-if="step === 1">
                     <div class="choose_appointment">
                         <div class="choose_block">
                             <p>Ваш вихованець</p>
-                            <span>
+                            <span :class="emptyError === 'type' ? 'error' : ''">
                                 <button class="montserrat_medium"
                                     :class="animalData.animalType === 'dogs' ? 'button_selected' : 'button'"
                                     @click="changeAnimalType('dogs')">Собака</button>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="choose_breed" v-if="animalData.animalType !== ''">
                             <p class="montserrat_medium">Порода</p>
-                            <div class="brand_select">
+                            <div :class="{ 'error': emptyError === 'breed', 'brand_select': true }">
                                 <input type="text" v-model="searchTerm" @click="filterBreeds" @input="filterBreeds"
                                     required placeholder="Введіть назву породи" class="standard_input" />
                                 <ul v-if="showDropdown">
@@ -148,12 +148,13 @@
                 </template>
                 <template v-if="step === 2">
                     <div class="choose_appointment">
-                        <div class="choose_block choose_service_block">
+                        <div
+                            :class="{ 'error': emptyError === 'service', 'choose_block': true, 'choose_service_block': true }">
                             <p>Оберіть послугу</p>
                             <div class="service" v-for="(item, key) in animalData.breed.services" :key="key"
                                 @click="setService(item, key)">
                                 <div class="service_name">
-                                    <span :class="isChosen === key ? 'checkpoint_active': 'checkpoint'"></span>
+                                    <span :class="isChosen === key ? 'checkpoint_active' : 'checkpoint'"></span>
                                     <p>{{ item.serviceName }}</p>
                                 </div>
                                 <p>від {{ item.servicePrice }} грн</p>
@@ -165,18 +166,85 @@
                     </div>
                 </template>
                 <template v-if="step === 3">
-                    <div class="choose_appointment">
-                        
+                    <div :class="{ 'error': emptyError === 'date', 'choose_appointment_date': true }">
+                        <p class="montserrat_semibold">Оберіть бажану дату та час</p>
+                        <Calendar @update:date="setDate" />
                     </div>
-                    <div class="axiliary_block">
-                        
+                    <div class="line"></div>
+                    <div :class="{ 'error': emptyError === 'time', 'axiliary_block': true, 'time_block': true }">
+                        <template v-if="animalData.date !== null">
+                            <div :class="{ 'time': true, 'time_chosen': chosenTime === key }"
+                                v-for="(item, key) in timeForAppointment" :key="key" @click="setTime(item, key)">
+                                {{ item }}
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                <template v-if="step === 4">
+                    <div class="choose_appointment_data">
+                        <p class="montserrat_semibold">Контактні данні</p>
+                        <div class="user_data">
+                            <span :class="{ 'error': emptyError === 'name' }">
+                                <label for="userName" class="montserrat_medium">Ваше ім`я</label>
+                                <input type="text" name="userName" v-model="animalData.userName" placeholder="Ім`я">
+                            </span>
+                            <span :class="{ 'error': emptyError === 'phone' }">
+                                <label for="userPhone" class="montserrat_medium">Номер телефону</label>
+                                <input type="phone" name="userPhone" v-model="animalData.userPhone"
+                                    placeholder="Номер телефону">
+                            </span>
+                            <span :class="{ 'error': emptyError === 'petName' }">
+                                <label for="petName" class="montserrat_medium">Кличка улюбленця</label>
+                                <input type="text" name="petName" v-model="animalData.petName"
+                                    placeholder="Кличка улюбленця">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="axiliary_block selected_block_wrapper">
+                        <div class="selected_breed">
+                            <p class="montserrat_semibold">Порода:</p>
+                            <p class="montserrat_medium">{{ animalData.breed.name }}</p>
+                        </div>
+                        <div class="selected_service">
+                            <p class="montserrat_semibold">Послуга:</p>
+                            <p class="montserrat_medium">
+                                {{ animalData.service.serviceName }}
+                                ,&nbsp; від
+                                {{ animalData.service.servicePrice }}
+                                грн
+                            </p>
+                        </div>
+                        <div class="selected_date">
+                            <p class="montserrat_semibold">Дата та час:</p>
+                            <p class="montserrat_medium">
+                                {{ animalData.date.date }}
+                                {{ monthNames[animalData.date.month - 1] }}
+                                , o
+                                {{ animalData.date.time }}
+                            </p>
+                        </div>
+                        <div class="important_block">
+                            <p class="montserrat_semibold">
+                                <span style="color: red;">Зверніть увагу!</span> <br>
+                                Дата та час остаточно узгоджується з оператором, та може відрізнятись від обраного вами
+                            </p>
+                        </div>
+                    </div>
+                </template>
+                <template v-if="step === 5">
+                    <div class="thanks_block">
+                        <h3 class="montserrat_semibold">Дякуємо, що обрали <br><span class="neucha">GroomGuru</span>!
+                        </h3>
+                        <img src="../assets/8.png" alt="">
                     </div>
                 </template>
             </div>
-            <button class="next" v-if="step === 1" @click="step++">Далі</button>
-            <button class="next" v-else-if="step === 2" @click="step++">Далі</button>
-            <button class="next" v-else-if="step === 3" @click="step++">Далі</button>
-            <button class="send" v-else @click="step = 1">Перевірити запис</button>
+            <div class="nav_button_block">
+                <button class="nav_button" @click="step--" v-if="step <= 4"><span>&lt;</span> Назад</button>
+                <button class="nav_button" @click="handleBlockChange()" v-if="step <= 3">Далі <span>&gt;</span></button>
+                <button class="send" @click="handleBlockChange()" v-if="step === 4">Записатись</button>
+            </div>
         </div>
     </div>
 </template>
@@ -184,20 +252,31 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { services_by_breed } from '../data/services_by_breed.js'
+import Calendar from './calandar.vue'
+import { sendMessageToTelegramBot } from '../methods/sendLead'
 
 const step = ref(1)
 const showDropdown = ref(false);
 const searchTerm = ref('')
 const isChosen = ref(null)
+const chosenTime = ref(null)
+const timeForAppointment = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00']
+const monthNames = [
+    'Січня', 'Лютого', 'Березня', 'Квітня', 'Травня', 'Червня',
+    'Липня', 'Серпня', 'Вересня', 'Жовтня', 'Листопада', 'Грудня'
+];
 const animalData = ref({
     animalType: '',
-    breed: null,
+    breed: '',
     service: null,
     date: null,
-    userName: null,
-    userPhone: null,
-    patName: null
+    userName: '',
+    userPhone: 380,
+    petName: ''
 })
+
+const emptyError = ref('')
+
 
 const filterBreeds = () => {
     if (searchTerm.value.trim() === '') {
@@ -220,7 +299,6 @@ const selectBreed = (breed) => {
     showDropdown.value = false;
 };
 
-const filteredBreeds = computed(filterBreeds);
 
 
 const changeAnimalType = (type) => {
@@ -229,12 +307,98 @@ const changeAnimalType = (type) => {
 
 const setService = (item, key) => {
     isChosen.value = key
-    animalData.value.service = item.serviceName;
-
-    console.log(animalData.value);
+    animalData.value.service = item;
 }
-console.log(animalData.value)
 
+const setDate = (data) => {
+    animalData.value.date = data
+}
+
+const setTime = (item, key) => {
+    chosenTime.value = key
+    animalData.value.date.time = item
+}
+
+const deleteError = () => {
+    setTimeout(() => {
+        emptyError.value = ''
+    }, 3000);
+}
+
+const handleBlockChange = () => {
+    const data = animalData.value
+    switch (step.value) {
+        case 1:
+            if (data.animalType === '') {
+                emptyError.value = 'type';
+                deleteError()
+                return
+            } else if (data.breed === '') {
+                emptyError.value = 'breed'
+                deleteError()
+                return
+            } else {
+                step.value++
+                return
+            }
+        case 2:
+            if (data.service === null) {
+                emptyError.value = 'service';
+                deleteError()
+                return
+            } else {
+                step.value++
+                return
+            }
+        case 3:
+            if (data.date === null) {
+                emptyError.value = 'date';
+                deleteError()
+                return
+            } else if (!data.date.time) {
+                emptyError.value = 'time'
+                deleteError()
+                return
+            } else {
+                step.value++
+                return
+            }
+        case 4:
+            if (data.userName === '') {
+                emptyError.value = 'name';
+                deleteError()
+                return
+            } else if (data.userPhone === '' || isNaN(Number(data.userPhone)) || data.userPhone.length !== 12) {
+                emptyError.value = 'phone'
+                deleteError()
+                return
+            } else if (data.petName === '') {
+                emptyError.value = 'petName'
+                deleteError()
+                return
+            } else {
+                sendLeadWrapper()
+                return
+            }
+        default:
+            break;
+    }
+}
+
+async function sendLeadWrapper() {
+    try {
+        console.log(animalData.value);
+        const data = animalData.value
+        const message = `Привіт! Я ${data.animalType === 'dogs' ? 'песик' : 'котик'} на імя "${data.petName}" породи ${data.breed.name}. \nХочу прийти до вас ${data.date.date} ${monthNames[data.date.month]} о ${data.date.time} на процедуру "${data.service.serviceName}".\nНа сайті вказано що це вартує від ${data.service.servicePrice} грн, зв\`яжіться будь-ласка з моїм власником для уточнення всіх данних.\nЙого/Її звати "${data.userName}", ось телефон - ${data.userPhone}. \nДо зустрічі!`
+        await sendMessageToTelegramBot(message)
+        step.value++
+
+    } catch (error) {
+        console.log(error, '_________');
+    }
+}
+
+const filteredBreeds = computed(filterBreeds);
 </script>
 
 
@@ -253,7 +417,7 @@ console.log(animalData.value)
 
     .appointment_block {
         width: 100%;
-        max-width: 1250px;
+        max-width: 1000px;
         border: 2px solid var(--yellow_color);
         border-radius: 32px;
         padding: 15px 25px;
@@ -423,13 +587,19 @@ console.log(animalData.value)
             }
         }
 
-
-
         .choose_appointment_wrapper {
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
+            justify-content: space-between;
             padding: 25px 50px;
+            height: 100%;
+            min-height: 500px;
+
+            @media screen and (max-width: 1050px) {
+                flex-direction: column;
+                align-items: center;
+            }
 
             .choose_appointment {
                 width: 100%;
@@ -457,6 +627,7 @@ console.log(animalData.value)
                             .checkpoint {
                                 width: 20px;
                                 height: 20px;
+                                min-width: 20px;
                                 border: 1px solid var(--yellow_color);
                                 border-radius: 50%;
                                 margin-right: 15px;
@@ -465,6 +636,7 @@ console.log(animalData.value)
                             .checkpoint_active {
                                 width: 20px;
                                 height: 20px;
+                                min-width: 20px;
                                 border: 1px solid var(--orange_color);
                                 border-radius: 50%;
                                 margin-right: 15px;
@@ -546,6 +718,57 @@ console.log(animalData.value)
                 }
             }
 
+            .choose_appointment_date {
+                width: 100%;
+                max-width: 400px;
+                padding: 15px 25px;
+                font-size: 1.2rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .choose_appointment_data {
+                width: 100%;
+                max-width: 300px;
+                padding: 15px 25px;
+                font-size: 1.2rem;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+
+                p {
+                    font-size: 1.25rem;
+                    margin-bottom: 15px;
+                }
+
+                span {
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    margin: 20px 0;
+
+                    input {
+                        border: 1px solid var(--yellow_color);
+                        border-radius: 16px;
+                        padding: 10px;
+                        margin-top: 10px;
+                    }
+                }
+            }
+
+            .line {
+                width: 2px;
+                height: 300px;
+                border: 1px solid var(--orange_color);
+            }
+
+            @media screen and (max-width: 1050px) {
+                .line {
+                    display: none
+                }
+            }
 
             .axiliary_block {
 
@@ -553,24 +776,107 @@ console.log(animalData.value)
                     max-width: 450px;
                 }
             }
+
+            @media screen and (max-width: 1050px) {
+                .axiliary_block {
+
+                    img {
+                        display: none;
+                    }
+                }
+            }
+
+            .selected_block_wrapper {
+                width: 100%;
+                max-width: 300px;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                padding: 15px 25px;
+
+                div {
+                    margin: 10px 0;
+
+                    .montserrat_medium {
+                        margin: 10px 0 0 5px;
+                    }
+                }
+            }
+
+            .time_block {
+                width: 100%;
+                max-width: 300px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+
+                .time {
+                    padding: 10px 15px;
+                    margin: 10px;
+                    border: 2px solid #02020280;
+                    border-radius: 15px;
+                    cursor: pointer;
+                }
+
+                .time_chosen {
+                    border: 2px solid var(--orange_color);
+                }
+            }
+
+            .thanks_block {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                align-items: center;
+
+                h3 {
+                    margin-bottom: 15px;
+                    font-size: 2.5rem;
+                    text-align: center;
+
+                    span {
+                        font-weight: 600;
+                    }
+                }
+            }
         }
 
-        .next {
-            border: none;
-            width: 100px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            background-color: transparent
+        .date_wrapper {
+            align-items: center;
+            justify-content: space-evenly
         }
 
-        .send {
-            width: 200px;
-            padding: 10px;
-            border: 2px solid var(--orange_color);
-            border-radius: 15px;
-            background-color: var(--yellow_color);
+        .nav_button_block {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-evenly;
+            width: 100%;
+            max-width: 350px;
             margin: 0 auto;
-            font-size: 1.2rem;
+
+            .nav_button {
+                width: 100px;
+                font-size: 1.2rem;
+                background-color: transparent;
+                position: relative;
+                padding: 10px 10px;
+                border: 2px solid var(--orange_color);
+                border-radius: 10px;
+
+                span {
+                    color: var(--orange_color);
+                }
+            }
+
+            .send {
+                width: 200px;
+                padding: 10px;
+                border: 2px solid var(--orange_color);
+                border-radius: 15px;
+                background-color: var(--yellow_color);
+                font-size: 1.2rem;
+            }
         }
 
         button:hover {
@@ -581,5 +887,11 @@ console.log(animalData.value)
 
 .active {
     fill: var(--orange_color);
+}
+
+.error {
+    border: 2px solid red !important;
+    padding: 10px !important;
+    border-radius: 10px;
 }
 </style>
