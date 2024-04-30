@@ -1,5 +1,5 @@
 export async function sendMessageToTelegramBot(message) {
-    const token = '6425652142:AAF4Y4d6nI6bmXYM7suFOmFYe1cEblpsunY';
+    const token = '6637122759:AAFbBvHkzYiDds5MsmMoBmhfnvoEb-vgldc';
     const chatId = '953296828';
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 

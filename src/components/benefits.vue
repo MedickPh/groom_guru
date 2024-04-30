@@ -1,5 +1,5 @@
 <template>
-    <div class="benefits_wrapper">
+    <div class="benefits_wrapper" id="benefits">
         <h2 class="neucha">
             Чому обирають GroomGuru?
         </h2>

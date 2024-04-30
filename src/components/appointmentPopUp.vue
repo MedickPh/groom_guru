@@ -130,7 +130,7 @@
                         </div>
                         <div class="choose_breed" v-if="animalData.animalType !== ''">
                             <p class="montserrat_medium">Порода</p>
-                            <div :class="{ 'error': emptyError === 'breed', 'brand_select': true }">
+                            <div :class="{ 'error': emptyError === 'breed', 'brand_select': true }" ref="contentBlock">
                                 <input type="text" v-model="searchTerm" @click="filterBreeds" @input="filterBreeds"
                                     required placeholder="Введіть назву породи" class="standard_input" />
                                 <ul v-if="showDropdown">
@@ -166,13 +166,28 @@
                     </div>
                 </template>
                 <template v-if="step === 3">
-                    <div :class="{ 'error': emptyError === 'date', 'choose_appointment_date': true }">
-                        <p class="montserrat_semibold">Оберіть бажану дату та час</p>
-                        <Calendar @update:date="setDate" />
-                    </div>
+                    <template v-if="outputOrder === false">
+                        <div :class="{ 'error': emptyError === 'date', 'choose_appointment_date': true }">
+                            <p class="montserrat_semibold">Оберіть бажану дату та час</p>
+                            <Calendar @update:date="setDate" />
+                        </div>
+                    </template>
+                    <template v-if="animalData.date === null && outputOrder === true">
+                        <div :class="{ 'error': emptyError === 'date', 'choose_appointment_date': true }">
+                            <p class="montserrat_semibold">Оберіть бажану дату</p>
+                            <Calendar @update:date="setDate" />
+                        </div>
+                    </template>
                     <div class="line"></div>
                     <div :class="{ 'error': emptyError === 'time', 'axiliary_block': true, 'time_block': true }">
-                        <template v-if="animalData.date !== null">
+                        <template v-if="animalData.date !== null && outputOrder === false">
+                            <div :class="{ 'time': true, 'time_chosen': chosenTime === key }"
+                                v-for="(item, key) in timeForAppointment" :key="key" @click="setTime(item, key)">
+                                {{ item }}
+                            </div>
+                        </template>
+                        <template v-if="animalData.date !== null && outputOrder === true">
+                            <p class="montserrat_semibold">Оберіть бажаний час</p>
                             <div :class="{ 'time': true, 'time_chosen': chosenTime === key }"
                                 v-for="(item, key) in timeForAppointment" :key="key" @click="setTime(item, key)">
                                 {{ item }}
@@ -200,8 +215,9 @@
                             </span>
                         </div>
                     </div>
-                    <div class="line"></div>
+                    <div class="line_date"></div>
                     <div class="axiliary_block selected_block_wrapper">
+
                         <div class="selected_breed">
                             <p class="montserrat_semibold">Порода:</p>
                             <p class="montserrat_medium">{{ animalData.breed.name }}</p>
@@ -241,19 +257,20 @@
                 </template>
             </div>
             <div class="nav_button_block">
-                <button class="nav_button" @click="step--" v-if="step <= 4"><span>&lt;</span> Назад</button>
-                <button class="nav_button" @click="handleBlockChange()" v-if="step <= 3">Далі <span>&gt;</span></button>
-                <button class="send" @click="handleBlockChange()" v-if="step === 4">Записатись</button>
+                <button class="nav_button" @click="prevBlock()" v-if="step <= 4"><span>&lt;</span> Назад</button>
+                <button class="nav_button" @click="nextBlock()" v-if="step <= 3">Далі <span>&gt;</span></button>
+                <button :class="{'send':true, 'buttonError': buttonError}" id="sendButton" @click="nextBlock()" v-if="step === 4">{{ sendButtonText }}</button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onUpdated, watchEffect } from 'vue';
 import { services_by_breed } from '../data/services_by_breed.js'
 import Calendar from './calandar.vue'
 import { sendMessageToTelegramBot } from '../methods/sendLead'
+import { deleteError } from '../methods/deleteError.js'
 
 const step = ref(1)
 const showDropdown = ref(false);
@@ -274,8 +291,11 @@ const animalData = ref({
     userPhone: 380,
     petName: ''
 })
-
+const sendButtonText = ref('Записатись')
+const buttonError = ref(false)
 const emptyError = ref('')
+const contentBlock = ref(null);
+const outputOrder = ref(false)
 
 
 const filterBreeds = () => {
@@ -299,8 +319,6 @@ const selectBreed = (breed) => {
     showDropdown.value = false;
 };
 
-
-
 const changeAnimalType = (type) => {
     animalData.value.animalType = type
 }
@@ -319,23 +337,58 @@ const setTime = (item, key) => {
     animalData.value.date.time = item
 }
 
-const deleteError = () => {
-    setTimeout(() => {
-        emptyError.value = ''
-    }, 3000);
+const getScreenSize = () => {
+    if (window.innerWidth <= 1050) {
+        return true
+    } else {
+        return false
+    }
 }
 
-const handleBlockChange = () => {
+watchEffect(() => {
+    outputOrder.value = getScreenSize();
+});
+
+window.addEventListener('resize', () => {
+    outputOrder.value = getScreenSize();
+});
+
+
+const prevBlock = () => {
+    const data = animalData.value
+    switch (step.value) {
+        case 2:
+            data.animalType = '';
+            data.breed = '';
+            searchTerm.value = '';
+            step.value--;
+            return
+        case 3:
+            data.service = null
+            isChosen.value = null
+            step.value--;
+            return
+        case 4:
+            data.date = null;
+            chosenTime.value = null
+            step.value--;
+            return
+        default:
+            break;
+    }
+}
+
+const nextBlock = () => {
     const data = animalData.value
     switch (step.value) {
         case 1:
             if (data.animalType === '') {
                 emptyError.value = 'type';
-                deleteError()
+                deleteError(emptyError)
                 return
             } else if (data.breed === '') {
                 emptyError.value = 'breed'
-                deleteError()
+                deleteError(emptyError)
                 return
             } else {
                 step.value++
@@ -344,7 +397,7 @@ const handleBlockChange = () => {
         case 2:
             if (data.service === null) {
                 emptyError.value = 'service';
-                deleteError()
+                deleteError(emptyError)
                 return
             } else {
                 step.value++
@@ -353,11 +406,11 @@ const handleBlockChange = () => {
         case 3:
             if (data.date === null) {
                 emptyError.value = 'date';
-                deleteError()
+                deleteError(emptyError)
                 return
             } else if (!data.date.time) {
                 emptyError.value = 'time'
-                deleteError()
+                deleteError(emptyError)
                 return
             } else {
                 step.value++
@@ -366,15 +419,15 @@ const handleBlockChange = () => {
         case 4:
             if (data.userName === '') {
                 emptyError.value = 'name';
-                deleteError()
+                deleteError(emptyError)
                 return
             } else if (data.userPhone === '' || isNaN(Number(data.userPhone)) || data.userPhone.length !== 12) {
                 emptyError.value = 'phone'
-                deleteError()
+                deleteError(emptyError)
                 return
             } else if (data.petName === '') {
                 emptyError.value = 'petName'
-                deleteError()
+                deleteError(emptyError)
                 return
             } else {
                 sendLeadWrapper()
@@ -386,19 +439,46 @@ const handleBlockChange = () => {
 }
 
 async function sendLeadWrapper() {
+    const button = document.getElementById('sendButton')
+    button.disabled = true;
     try {
-        console.log(animalData.value);
         const data = animalData.value
         const message = `Привіт! Я ${data.animalType === 'dogs' ? 'песик' : 'котик'} на імя "${data.petName}" породи ${data.breed.name}. \nХочу прийти до вас ${data.date.date} ${monthNames[data.date.month]} о ${data.date.time} на процедуру "${data.service.serviceName}".\nНа сайті вказано що це вартує від ${data.service.servicePrice} грн, зв\`яжіться будь-ласка з моїм власником для уточнення всіх данних.\nЙого/Її звати "${data.userName}", ось телефон - ${data.userPhone}. \nДо зустрічі!`
         await sendMessageToTelegramBot(message)
         step.value++
-
     } catch (error) {
-        console.log(error, '_________');
+        sendButtonText.value = 'Щось не так, спробуйте ще';
+        buttonError.value = true
+        setTimeout(() => {
+            button.disabled = false;
+            buttonError.value = false
+            sendButtonText.value = 'Записатись'
+        }, 3000);
+        console.log(error);
     }
 }
 
 const filteredBreeds = computed(filterBreeds);
+
+onMounted(() => {
+    updateOverflowClass();
+    window.addEventListener('resize', updateOverflowClass);
+});
+
+onUpdated(() => {
+    updateOverflowClass();
+});
+
+const updateOverflowClass = () => {
+    if (contentBlock.value) {
+        if (contentBlock.value.scrollHeight > 200) {
+            contentBlock.value.classList.add('scrollable');
+        } else {
+            contentBlock.value.classList.remove('scrollable');
+        }
+    }
+};
+
 </script>
 
 
@@ -421,6 +501,7 @@ const filteredBreeds = computed(filterBreeds);
         border: 2px solid var(--yellow_color);
         border-radius: 32px;
         padding: 15px 25px;
+        margin: 0 15px;
         background-color: #fff;
         display: flex;
         flex-direction: column;
@@ -431,6 +512,11 @@ const filteredBreeds = computed(filterBreeds);
             justify-content: center;
             position: relative;
             margin-bottom: 25px;
+
+            @media screen and (max-width: 650px) {
+                margin: 0;
+
+            }
 
             .close {
                 position: absolute;
@@ -457,6 +543,10 @@ const filteredBreeds = computed(filterBreeds);
             width: 100%;
             max-width: 650px;
             margin: 0 auto;
+
+            @media screen and (max-width: 650px) {
+                display: none;
+            }
 
             div {
                 text-align: center;
@@ -599,6 +689,9 @@ const filteredBreeds = computed(filterBreeds);
             @media screen and (max-width: 1050px) {
                 flex-direction: column;
                 align-items: center;
+                text-align: center;
+                padding: 0;
+                margin-top: 15px;
             }
 
             .choose_appointment {
@@ -701,6 +794,7 @@ const filteredBreeds = computed(filterBreeds);
 
                         ul {
                             list-style-type: none;
+                            text-align: left;
                             padding: 5px 0;
                             margin: 0;
                         }
@@ -714,6 +808,34 @@ const filteredBreeds = computed(filterBreeds);
                             background-color: var(--yellow_color);
                             border-radius: 8px;
                         }
+                    }
+
+                    .scrollable {
+                        height: 100%;
+                        max-height: 200px;
+                        overflow-y: scroll;
+                        -ms-overflow-style: none;
+                        scrollbar-width: none;
+
+                        ::-webkit-scrollbar {
+                            width: 0px;
+                            background: transparent;
+                        }
+                    }
+
+
+                    @media screen and (max-width: 1050px) {
+                        .brand_select {
+                            margin-top: 40px;
+                        }
+                    }
+                }
+
+                @media screen and (max-width: 1050px) {
+                    .choose_breed {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
                     }
                 }
             }
@@ -749,11 +871,23 @@ const filteredBreeds = computed(filterBreeds);
                     flex-wrap: nowrap;
                     margin: 20px 0;
 
+                    @media screen and (max-width: 650px) {
+                        margin: 5px 0;
+                    }
                     input {
                         border: 1px solid var(--yellow_color);
                         border-radius: 16px;
                         padding: 10px;
                         margin-top: 10px;
+                    }
+                }
+
+                @media screen and (max-width: 1050px) {
+                    padding: 0;
+                    margin-top: 15px;
+
+                    p {
+                        margin: 0;
                     }
                 }
             }
@@ -764,8 +898,16 @@ const filteredBreeds = computed(filterBreeds);
                 border: 1px solid var(--orange_color);
             }
 
+            .line_date {
+                width: 2px;
+                height: 400px;
+                border: 1px solid var(--orange_color);
+            }
+
             @media screen and (max-width: 1050px) {
-                .line {
+
+                .line,
+                .line_date {
                     display: none
                 }
             }
@@ -801,6 +943,19 @@ const filteredBreeds = computed(filterBreeds);
                         margin: 10px 0 0 5px;
                     }
                 }
+
+                @media screen and (max-width: 1050px) {
+                    max-width: 100%;
+                    padding: 0;
+
+                    div {
+                        margin: 10px 0;
+
+                        .montserrat_medium {
+                            margin: 0;
+                        }
+                    }
+                }
             }
 
             .time_block {
@@ -809,6 +964,13 @@ const filteredBreeds = computed(filterBreeds);
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
+                justify-content: space-between;
+
+                p {
+                    width: 100%;
+                    margin-bottom: 15px;
+                    text-align: center;
+                }
 
                 .time {
                     padding: 10px 15px;
@@ -893,5 +1055,8 @@ const filteredBreeds = computed(filterBreeds);
     border: 2px solid red !important;
     padding: 10px !important;
     border-radius: 10px;
+}
+.buttonError {
+    background-color: #ff3f3f !important;
 }
 </style>

@@ -1,30 +1,102 @@
 <template>
-    <div class="consultation">
+    <div class="consultation" id="consultation">
         <h2 class="neucha">Отримайте безкоштовну консультацію</h2>
         <div class="consultation_wrapper">
             <img src="../assets/3.png" alt="">
-            <form method="post" class="consultation_form">
+            <form method="post" class="consultation_form" @submit="sendConsultationLead($event)">
                 <span>
                     <label for="name" class="montserrat_medium">Ваше ім`я</label>
-                    <input type="text" name="name" placeholder="Ім`я">
+                    <input type="text" :class="{'error': emptyError === 'name'}" name="name" placeholder="Ім`я" required v-model="leadData.name">
                 </span>
                 <span>
                     <label for="phone" class="montserrat_medium">Номер телефону</label>
-                    <input type="phone" name="phone" placeholder="Номер телефону">
+                    <input type="phone" :class="{'error': emptyError === 'phone'}" name="phone" autocomplete="off" placeholder="Номер телефону" required v-model="leadData.phone">
                 </span>
                 <span>
                     <label for="email" class="montserrat_medium">E-mail</label>
-                    <input type="email" name="email" placeholder="E-mail">
+                    <input type="email" :class="{'error': emptyError === 'email'}" name="email" placeholder="E-mail" required v-model="leadData.email">
                 </span>
                 <span class="desc">
                     <label for="desc" class="montserrat_medium">Ваше запитання</label>
-                    <input type="phone" name="desc" placeholder="Ваше запитання">
+                    <textarea name="desc" cols="30" rows="10" placeholder="Ваше запитання"
+                        v-model="leadData.text"></textarea>
                 </span>
-                <button type="submit">Отримати консультацію</button>
+                <button type="submit" :class="{ 'buttonError': sendError }" id="sendButton">{{ sendButtonText
+                    }}</button>
             </form>
         </div>
     </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+import { sendMessageToTelegramBot } from '../methods/sendLead.js';
+import { deleteError } from '../methods/deleteError.js'
+import validator from 'validator';
+
+const leadData = ref({
+    name: null,
+    phone: null,
+    email: null,
+    text: null
+})
+
+const sendButtonText = ref('Отримати консультацію')
+const sendError = ref(false)
+const emptyError = ref('')
+const isValidEmail = ref(false);
+const isValidPhone = ref(false)
+
+const validateEmail = () => {
+    isValidEmail.value = validator.isEmail(leadData.value.email);
+};
+
+const validatePhone = () => {
+    isValidPhone.value = validator.isMobilePhone(leadData.value.phone, 'uk-UA')
+}
+
+async function sendConsultationLead() {
+    event.preventDefault()
+    const button = document.getElementById('sendButton')
+    const data = leadData.value
+    validateEmail()
+    validatePhone()
+
+    if (data.name === null || data.name.length <= 1) {
+        emptyError.value = 'name';
+        deleteError(emptyError)
+        return
+    } else if (!isValidPhone.value) {
+        emptyError.value = 'phone';
+        deleteError(emptyError)
+        return
+    } else if (!isValidEmail.value) {
+        emptyError.value = 'email';
+        deleteError(emptyError)
+        return
+    }
+    button.disabled = true;
+
+    try {
+        const message = `Привіт! \nМене звати "${data.name}"${data.text === null? '': `, я хотів/ла запитати - \n "${data.text}"`}.\nЗв\`яжіться зі мною будь-ласка по телефону "${data.phone}", або напишіть на пошту "${data.email}"`
+        await sendMessageToTelegramBot(message)
+        sendButtonText.value = 'Відправлено!'
+        setTimeout(() => {
+            button.disabled = false;
+            sendButtonText.value = 'Отримати консультацію'
+        }, 5000);
+    } catch (error) {
+        sendButtonText.value = 'Щось пішло не так, спробуйте ще раз'
+        sendError.value = true
+        button.disabled = false;
+        setTimeout(() => {
+            sendButtonText.value = 'Отримати консультацію'
+            sendError.value = false
+        }, 3000);
+        console.log(error);
+    }
+}
+</script>
 
 <style scoped lang="scss">
 .consultation {
@@ -68,6 +140,7 @@
             z-index: 1;
             position: relative;
             background-color: #fff;
+            font-size: 1.2rem;
 
             span {
                 display: flex;
@@ -75,30 +148,16 @@
                 flex-wrap: nowrap;
                 margin: 20px 0;
 
-                input {
-                    border: 1px solid var(--yellow_color);
+                input,
+                textarea {
+                    border: 2px solid var(--yellow_color);
                     border-radius: 16px;
                     padding: 10px;
                     margin-top: 10px;
                 }
-            }
 
-            .desc {
-                input {
-                    height: 200px;
-                    padding-top: 20px;
-                }
-
-                input::placeholder {
-                    text-align: left;
-                    /* Выравнивание текста по левому краю */
-                    position: absolute;
-                    /* Позиционирование абсолютно */
-                    top: 10px;
-                    /* Отступ сверху */
-                    left: 10px;
-                    /* Отступ слева */
-                    color: gray;
+                .error {
+                    border: 2px solid red !important;
                 }
             }
 
@@ -115,6 +174,10 @@
             button:hover {
                 background-color: var(--orange_color);
                 transition: 0.7s;
+            }
+
+            .buttonError {
+                background-color: #ff3f3f !important;
             }
         }
     }

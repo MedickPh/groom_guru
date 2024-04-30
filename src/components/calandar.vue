@@ -59,7 +59,7 @@ function currentMonthName() {
 
 function isToday(day) {
     const today = new Date();
-    return currentYear === today.getFullYear() && currentMonth === today.getMonth() && day === today.getDate();
+    return currentYear === today.getFullYear() && currentMonth === today.getMonth() && day.date === today.getDate();
 }
 
 function isPast(day) {
@@ -151,13 +151,19 @@ updateMonth();
     align-items: center;
 }
 
+.today{
+    background: #d8740195;
+    border-radius: 15px;
+    color: black !important;
+}
+
 .past {
     color: #ccc;
 }
 
 .selected {
-    /* background-color: var(--yellow_color); */
-    border-radius: 5px;
+    background-color: var(--yellow_color);
+    border-radius: 15px;
     border: 1px solid var(--orange_color);
 }
 

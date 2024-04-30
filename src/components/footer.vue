@@ -2,16 +2,16 @@
     <div class="footer_wrapper">
         <img src="../assets/GroomGuru.png" alt="">
         <div class="menu">
-            <p class="montserrat_medium">
+            <p class="montserrat_medium" @click="emit('scroll:to','services')">
                 Послуги салону
             </p>
-            <p class="montserrat_medium">
+            <p class="montserrat_medium" @click="emit('scroll:to','benefits')">
                 Чому ми?
             </p>
-            <p class="montserrat_medium">
+            <p class="montserrat_medium" @click="emit('scroll:to','reviews')">
                 Відгуки
             </p>
-            <p class="montserrat_medium">
+            <p class="montserrat_medium" @click="emit('scroll:to','consultation')">
                 Контакти
             </p>
         </div>
@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-
-
+import { defineEmits } from 'vue'
+const emit = defineEmits()
 </script>
 
 <style scoped lang="scss">
@@ -51,6 +51,7 @@
 
         p {
             margin: 0 10px;
+            cursor: pointer;
         }
     }
 

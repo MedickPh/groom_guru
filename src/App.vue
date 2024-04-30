@@ -10,21 +10,28 @@ import Consultation from "./components/consultation.vue";
 import Footer from "./components/footer.vue"
 import AppointmentPopUp from "./components/appointmentPopUp.vue";
 
-const isShowAppointment = ref(true)
+const isShowAppointment = ref(false)
 
 const isShowComponent = (value) => {
   isShowAppointment.value = value
 }
+
+const scrollToComponent = (component) => {
+    const element = document.getElementById(component);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
 </script>
 
 <template>
-  <Header/>
+  <Header @scroll:to="scrollToComponent"/>
   <Main_block @open="isShowComponent(true)"/>
   <Benefits/>
   <Services @open="isShowComponent(true)"/>
   <Reviews/>
   <Consultation/>
-  <Footer/>
+  <Footer @scroll:to="scrollToComponent"/>
   <AppointmentPopUp v-if="isShowAppointment" @close="isShowComponent(false)"/>
 </template>
 

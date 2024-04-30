@@ -1,5 +1,5 @@
 <template>
-    <div class="services_wrapper">
+    <div class="services_wrapper" id="services">
         <div class="header">
             <h2 class="neucha">Наші послуги</h2>
             <div class="animal_type">
@@ -130,6 +130,11 @@ onBeforeMount(() => {
                 margin: 5px 10px;
                 font-size: 1.45rem;
                 background: transparent;
+            }
+            @media screen and (max-width: 600px) {
+                button {
+                    margin: 0;
+                }
             }
 
             .active_button {

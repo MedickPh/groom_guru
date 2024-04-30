@@ -8,16 +8,6 @@
   padding: 1rem;
 
 }
-/* Colors */
-
-
-:root{
-  --dark_color: #514f4f;
-  --orange_color: #d87501;
-  --yellow_color: #f6ae02;
-  --beige_color: #ffe29f;
-}
-
 /* Box sizing rules */
 *,
 *::before,
