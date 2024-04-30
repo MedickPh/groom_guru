@@ -6,7 +6,7 @@
             <button class="montserrat_medium" @click="$emit('open')">Записатись зараз</button>
         </div>
         <div class="img_block">
-            <img src="../assets/1.png" alt="Main picture with beautiful dog">
+            <img src="../assets/1.png" alt="Стрижка собаки в салоні грумінгу в Одесі - Стрижка собаки в груминг-салоне в Одессе">
         </div>
     </div>
 </template>

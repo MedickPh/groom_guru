@@ -5,7 +5,7 @@
         </h2>
         <div class="benefits_block">
             <div class="img_wrapper">
-                <img src="../assets/2.png" alt="Picture with happy dog and cool cat">
+                <img src="../assets/2.png" alt="Миття собаки в салоні грумінгу - Мытье собаки в салоне груминга">
             </div>
             <div class="text_wrapper">
                 <h3 class="montserrat_medium">
