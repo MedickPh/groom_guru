@@ -114,7 +114,7 @@
                     </p>
                 </div>
             </div>
-            <div :class="{ 'choose_appointment_wrapper': true, 'date_wrapper': step === 3 }">
+            <div :class="{ 'choose_appointment_wrapper': true, 'date_wrapper': step === 3, 'reverse': step === 4 }">
                 <template v-if="step === 1">
                     <div class="choose_appointment">
                         <div class="choose_block">
@@ -130,7 +130,7 @@
                         </div>
                         <div class="choose_breed" v-if="animalData.animalType !== ''">
                             <p class="montserrat_medium">Порода</p>
-                            <div :class="{ 'error': emptyError === 'breed', 'brand_select': true }" ref="contentBlock">
+                            <div :class="{ 'error': emptyError === 'breed', 'brand_select': true }" ref="breedBlock">
                                 <input type="text" v-model="searchTerm" @click="filterBreeds" @input="filterBreeds"
                                     required placeholder="Введіть назву породи" class="standard_input" />
                                 <ul v-if="showDropdown">
@@ -142,26 +142,78 @@
 
                         </div>
                     </div>
-                    <div class="axiliary_block">
+                    <div class="auxiliary_block">
                         <img src="../assets/5.png" alt="">
                     </div>
                 </template>
                 <template v-if="step === 2">
                     <div class="choose_appointment">
-                        <div
-                            :class="{ 'error': emptyError === 'service', 'choose_block': true, 'choose_service_block': true }">
-                            <p>Оберіть послугу</p>
-                            <div class="service" v-for="(item, key) in animalData.breed.services" :key="key"
-                                @click="setService(item, key)">
+                        <span :class="emptyError === 'type' ? 'error' : ''">
+                            <button class="montserrat_medium"
+                                :class="changeServiceType === 'main' ? 'button_selected' : 'button', emptyError === 'service' ? 'error' : ''"
+                                @click="changeServiceType = 'main'">Оберіть основну послугу</button>
+                            <button class="montserrat_medium"
+                                :class="changeServiceType === 'extra' ? 'button_selected' : 'button'"
+                                @click="changeServiceType = 'extra'">Оберіть дотаткову послугу</button>
+                        </span>
+                        <div class="choose_block choose_service_block" v-if="changeServiceType === 'main'"
+                            ref="serviceBlock">
+                            <div :class="{ 'error': emptyError === 'service', 'service': true, 'main_service_wrapper': true }"
+                                v-for="(item, key) in animalData.breed.services" :key="key"
+                                @click="setMainService(item, key)">
+                                <div class="main_service">
+                                    <div class="service_name">
+                                        <span :class="isChosen === key ? 'checkpoint_active' : 'checkpoint'"></span>
+                                        <p>{{ item.serviceName }}</p>
+                                    </div>
+                                    <p>від {{ item.servicePrice }} грн</p>
+                                </div>
+                                <div class="includes_block" v-if="isChosen === key">
+                                    <p class="montserrat_regular">Що входить:</p>
+                                    <div class="service_list"
+                                        v-for="(service, index) of generalServices[animalData.animalType].services[key].list"
+                                        :key="index">
+                                        <span>
+                                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt"
+                                                height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+                                                preserveAspectRatio="xMidYMid meet">
+
+                                                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                                    fill="#f6ae02" stroke="none">
+                                                    <path d="M2945 3450 l-1020 -1020 -343 342 -342 343 -150 -150 -150 -150 490
+                                -490 490 -490 1172 1172 1173 1173 -145 145 c-80 80 -147 145 -150 145 -3 0
+                                -464 -459 -1025 -1020z" />
+                                                    <path d="M1590 4250 c-262 -36 -517 -127 -728 -258 -221 -138 -424 -336 -564
+                                -552 -465 -715 -366 -1664 236 -2266 370 -370 883 -560 1410 -523 578 41 1101
+                                357 1408 851 138 222 227 480 259 753 18 149 4 452 -27 594 -5 22 -23 7 -193
+                                -163 l-188 -188 -6 -131 c-26 -560 -412 -1060 -954 -1236 -204 -66 -468 -84
+                                -673 -47 -573 104 -1022 553 -1126 1126 -24 130 -23 363 1 490 51 274 176 518
+                                365 714 191 198 410 324 686 393 101 25 124 27 314 28 161 0 223 -4 290 -18
+                                129 -28 261 -75 344 -122 l74 -42 145 156 c168 181 167 154 9 242 -156 87
+                                -329 147 -537 186 -94 18 -448 26 -545 13z" />
+                                                </g>
+                                            </svg>
+                                            <p class="text montserrat_regular">{{ service.serviceName }}</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div :class="{ 'choose_block': true, 'choose_service_block': true, 'scrollable_service': true }"
+                            v-else>
+                            <div class="service"
+                                v-for="(item, key) in generalServices[animalData.animalType].services.additionalBenefits.list"
+                                :key="key" @click="setExtraService(item, key)">
                                 <div class="service_name">
-                                    <span :class="isChosen === key ? 'checkpoint_active' : 'checkpoint'"></span>
+                                    <span
+                                        :class="animalData.extraServices.findIndex(e => e.serviceName === item.serviceName) !== -1 ? 'checkpoint_active' : 'checkpoint'"></span>
                                     <p>{{ item.serviceName }}</p>
                                 </div>
                                 <p>від {{ item.servicePrice }} грн</p>
                             </div>
                         </div>
                     </div>
-                    <div class="axiliary_block">
+                    <div class="auxiliary_block">
                         <img src="../assets/6.png" alt="">
                     </div>
                 </template>
@@ -179,7 +231,7 @@
                         </div>
                     </template>
                     <div class="line"></div>
-                    <div :class="{ 'error': emptyError === 'time', 'axiliary_block': true, 'time_block': true }">
+                    <div :class="{ 'error': emptyError === 'time', 'auxiliary_block': true, 'time_block': true }">
                         <template v-if="animalData.date !== null && outputOrder === false">
                             <div :class="{ 'time': true, 'time_chosen': chosenTime === key }"
                                 v-for="(item, key) in timeForAppointment" :key="key" @click="setTime(item, key)">
@@ -216,19 +268,35 @@
                         </div>
                     </div>
                     <div class="line_date"></div>
-                    <div class="axiliary_block selected_block_wrapper">
-
+                    <div class="auxiliary_block selected_block_wrapper" ref="selectedServices">
+                        <div class="important_block">
+                            <p class="montserrat_semibold">
+                                <span style="color: red;">Зверніть увагу!</span> <br>
+                                Дата, час та ціна остаточно узгоджується з оператором, та можуть відрізнятись від
+                                обраних!
+                            </p>
+                        </div>
                         <div class="selected_breed">
                             <p class="montserrat_semibold">Порода:</p>
                             <p class="montserrat_medium">{{ animalData.breed.name }}</p>
                         </div>
                         <div class="selected_service">
-                            <p class="montserrat_semibold">Послуга:</p>
+                            <p class="montserrat_semibold">Основна послуга:</p>
                             <p class="montserrat_medium">
-                                {{ animalData.service.serviceName }}
-                                ,&nbsp; від
-                                {{ animalData.service.servicePrice }}
+                                {{ animalData.mainService.serviceName }}
+                                &nbsp;-&nbsp; від
+                                {{ animalData.mainService.servicePrice }}
                                 грн
+                            </p>
+                        </div>
+                        <div class="selected__extra_service">
+                            <p class="montserrat_semibold">Додаткові послуги:</p>
+                            <p class="montserrat_medium" v-for="item in animalData.extraServices">
+                                    {{ item.serviceName }}
+                                    &nbsp;-&nbsp; від
+                                    {{ item.servicePrice }}
+                                    грн,
+                                    <br>
                             </p>
                         </div>
                         <div class="selected_date">
@@ -238,12 +306,6 @@
                                 {{ monthNames[animalData.date.month - 1] }}
                                 , o
                                 {{ animalData.date.time }}
-                            </p>
-                        </div>
-                        <div class="important_block">
-                            <p class="montserrat_semibold">
-                                <span style="color: red;">Зверніть увагу!</span> <br>
-                                Дата та час остаточно узгоджується з оператором, та може відрізнятись від обраного вами
                             </p>
                         </div>
                     </div>
@@ -259,7 +321,9 @@
             <div class="nav_button_block">
                 <button class="nav_button" @click="prevBlock()" v-if="step <= 4"><span>&lt;</span> Назад</button>
                 <button class="nav_button" @click="nextBlock()" v-if="step <= 3">Далі <span>&gt;</span></button>
-                <button :class="{'send':true, 'buttonError': buttonError}" id="sendButton" @click="nextBlock()" v-if="step === 4">{{ sendButtonText }}</button>
+                <button :class="{ 'send': true, 'buttonError': buttonError }" id="sendButton" @click="nextBlock()"
+                    v-if="step === 4">{{
+                    sendButtonText }}</button>
             </div>
         </div>
     </div>
@@ -271,10 +335,12 @@ import { services_by_breed } from '../data/services_by_breed.js'
 import Calendar from './calandar.vue'
 import { sendMessageToTelegramBot } from '../methods/sendLead'
 import { deleteError } from '../methods/deleteError.js'
+import { generalServices } from '../data/general_services.js'
 
 const step = ref(1)
 const showDropdown = ref(false);
 const searchTerm = ref('')
+const changeServiceType = ref('main')
 const isChosen = ref(null)
 const chosenTime = ref(null)
 const timeForAppointment = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00']
@@ -285,7 +351,8 @@ const monthNames = [
 const animalData = ref({
     animalType: '',
     breed: '',
-    service: null,
+    mainService: null,
+    extraServices: [],
     date: null,
     userName: '',
     userPhone: 380,
@@ -294,18 +361,23 @@ const animalData = ref({
 const sendButtonText = ref('Записатись')
 const buttonError = ref(false)
 const emptyError = ref('')
-const contentBlock = ref(null);
+const breedBlock = ref(null);
+const serviceBlock = ref(null);
+const selectedServices = ref(null)
 const outputOrder = ref(false)
 
 
 const filterBreeds = () => {
-    if (searchTerm.value.trim() === '') {
-        showDropdown.value = false;
-        return
-    }
+    let filteredBreeds;
     const animalType = animalData.value.animalType;
     const animalBreeds = services_by_breed[animalType];
-    const filteredBreeds = Object.values(animalBreeds).filter(breed => {
+    if (searchTerm.value.trim() === '') {
+        showDropdown.value = true;
+        filteredBreeds = Object.values(animalBreeds)
+        return filteredBreeds
+    }
+
+    filteredBreeds = Object.values(animalBreeds).filter(breed => {
         return breed.name.toLowerCase().includes(searchTerm.value.toLowerCase());
     });
 
@@ -323,9 +395,23 @@ const changeAnimalType = (type) => {
     animalData.value.animalType = type
 }
 
-const setService = (item, key) => {
+const setMainService = (item, key) => {
     isChosen.value = key
-    animalData.value.service = item;
+    animalData.value.mainService = item;
+}
+
+const setExtraService = (item, key) => {
+    const data = animalData.value.extraServices;
+    if (data !== null) {
+        const index = data.findIndex(e => e.serviceName === item.serviceName)
+        if (index !== -1) {
+            animalData.value.extraServices.splice(index, 1)
+        } else {
+            animalData.value.extraServices.push(item)
+        }
+    } else {
+        animalData.value.extraServices.push(item)
+    }
 }
 
 const setDate = (data) => {
@@ -364,8 +450,10 @@ const prevBlock = () => {
             step.value--;
             return
         case 3:
-            data.service = null
+            data.mainService = null
+            data.extraServices = []
             isChosen.value = null
+            changeServiceType.value = 'main'
             step.value--;
             return
         case 4:
@@ -395,7 +483,7 @@ const nextBlock = () => {
                 return
             }
         case 2:
-            if (data.service === null) {
+            if (data.mainService === null) {
                 emptyError.value = 'service';
                 deleteError(emptyError)
                 return
@@ -443,7 +531,8 @@ async function sendLeadWrapper() {
     button.disabled = true;
     try {
         const data = animalData.value
-        const message = `Привіт! Я ${data.animalType === 'dogs' ? 'песик' : 'котик'} на імя "${data.petName}" породи ${data.breed.name}. \nХочу прийти до вас ${data.date.date} ${monthNames[data.date.month]} о ${data.date.time} на процедуру "${data.service.serviceName}".\nНа сайті вказано що це вартує від ${data.service.servicePrice} грн, зв\`яжіться будь-ласка з моїм власником для уточнення всіх данних.\nЙого/Її звати "${data.userName}", ось телефон - ${data.userPhone}. \nДо зустрічі!`
+        const extraServices = data.extraServices.map(service => service.serviceName + ' за ' + service.servicePrice + 'грн').join(', ');
+        const message = `Привіт! Я ${data.animalType === 'dogs' ? 'песик' : 'котик'} на імя "${data.petName}" породи ${data.breed.name}. \nХочу прийти до вас ${data.date.date} ${monthNames[data.date.month]} о ${data.date.time} на процедуру "${data.mainService.serviceName}".\nНа сайті вказано що це вартує від ${data.mainService.servicePrice} грн. ${extraServices !== ''? `Також цікавлять такі додаткові послуги ${extraServices}`: ''} \nЗв\`яжіться будь-ласка з моїм власником для уточнення всіх данних.\nЙого/Її звати "${data.userName}", ось телефон - ${data.userPhone}. \nДо зустрічі!`
         await sendMessageToTelegramBot(message)
         step.value++
     } catch (error) {
@@ -470,11 +559,23 @@ onUpdated(() => {
 });
 
 const updateOverflowClass = () => {
-    if (contentBlock.value) {
-        if (contentBlock.value.scrollHeight > 200) {
-            contentBlock.value.classList.add('scrollable');
+    if (breedBlock.value) {
+        if (breedBlock.value.scrollHeight > 200) {
+            breedBlock.value.classList.add('scrollable');
         } else {
-            contentBlock.value.classList.remove('scrollable');
+            breedBlock.value.classList.remove('scrollable');
+        }
+    } else if (serviceBlock.value) {
+        if (serviceBlock.value.scrollHeight > 300) {
+            serviceBlock.value.classList.add('scrollable_service');
+        } else {
+            serviceBlock.value.classList.remove('scrollable_service');
+        }
+    }else if(selectedServices.value) {
+        if (selectedServices.value.scrollHeight > 300) {
+            selectedServices.value.classList.add('scrollable_selected_service');
+        } else  {
+            selectedServices.value.classList.remove('scrollable_selected_service');
         }
     }
 };
@@ -692,15 +793,49 @@ const updateOverflowClass = () => {
                 text-align: center;
                 padding: 0;
                 margin-top: 15px;
+                .choose_appointment {
+                    .choose_service_block {
+                        .main_service_wrapper {
+                            text-align: left;
+                        }
+                    }
+                }
             }
 
             .choose_appointment {
                 width: 100%;
-                padding: 15px 25px;
+                padding: 0 25px 0 0;
                 font-size: 1.2rem;
 
-                .choose_service_block {
+                @media screen and (max-width: 650px) {
+                    padding: 0;
+                }
 
+                span {
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    justify-content: space-evenly;
+
+                    .button {
+                        border: 1px solid var(--yellow_color);
+                        border-radius: 16px;
+                        padding: 10px 35px;
+                        background-color: transparent;
+                        margin-bottom: 10px;
+                    }
+
+                    .button_selected {
+                        border: 2px solid var(--orange_color);
+                        border-radius: 16px;
+                        padding: 10px 35px;
+                        color: var(--yellow_color);
+                        background-color: transparent;
+                        margin-bottom: 10px;
+                    }
+                }
+
+                .choose_service_block {
                     .service {
                         display: flex;
                         flex-direction: row;
@@ -716,6 +851,7 @@ const updateOverflowClass = () => {
                             flex-direction: row;
                             flex-wrap: nowrap;
                             align-items: center;
+                            text-align: left;
 
                             .checkpoint {
                                 width: 20px;
@@ -735,6 +871,91 @@ const updateOverflowClass = () => {
                                 margin-right: 15px;
                                 background-color: var(--yellow_color);
                             }
+
+                            p {
+                                max-width: 100%;
+                                margin-right: 5px;
+                            }
+                        }
+
+                        p {
+                            width: 100%;
+                            max-width: 100px;
+                            min-width: 100px;
+                        }
+
+                        .includes_block {
+                            .service_list {
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                margin-bottom: 10px;
+
+                                span {
+                                    display: flex;
+                                    flex-direction: row;
+                                    width: 100%;
+                                    margin: 0;
+
+                                    svg {
+                                        width: 25px;
+                                        height: 25px;
+                                        margin-right: 5px;
+                                    }
+
+                                    p {
+                                        width: 100%;
+                                        max-width: 100%;
+                                        font-size: 1rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .main_service_wrapper {
+                        flex-direction: column;
+                        align-items: flex-start;
+
+                        .main_service {
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;
+                            justify-content: space-between;
+                            align-items: center;
+                            width: 100%;
+
+                            .service_name {
+                                display: flex;
+                                flex-direction: row;
+                                flex-wrap: nowrap;
+                                align-items: center;
+                                text-align: left;
+
+                                .checkpoint {
+                                    width: 20px;
+                                    height: 20px;
+                                    min-width: 20px;
+                                    border: 1px solid var(--yellow_color);
+                                    border-radius: 50%;
+                                    margin-right: 15px;
+                                }
+
+                                .checkpoint_active {
+                                    width: 20px;
+                                    height: 20px;
+                                    min-width: 20px;
+                                    border: 1px solid var(--orange_color);
+                                    border-radius: 50%;
+                                    margin-right: 15px;
+                                    background-color: var(--yellow_color);
+                                }
+
+                                p {
+                                    width: 100%;
+                                    max-width: 100%
+                                }
+                            }
                         }
                     }
 
@@ -743,32 +964,14 @@ const updateOverflowClass = () => {
                     }
                 }
 
-                .choose_block {
+                
 
+                .choose_block {
                     width: 100%;
 
-
                     span {
-                        display: flex;
                         flex-direction: row;
-                        flex-wrap: nowrap;
-                        justify-content: space-evenly;
                         margin: 15px 0;
-
-                        .button {
-                            border: 1px solid var(--yellow_color);
-                            border-radius: 16px;
-                            padding: 10px 35px;
-                            background-color: transparent
-                        }
-
-                        .button_selected {
-                            border: 2px solid var(--orange_color);
-                            border-radius: 16px;
-                            padding: 10px 35px;
-                            color: var(--yellow_color);
-                            background-color: transparent
-                        }
                     }
                 }
 
@@ -778,7 +981,8 @@ const updateOverflowClass = () => {
                         border: 2px solid var(--orange_color);
                         background-color: rgb(255, 255, 255);
                         border-radius: 8px;
-                        width: 300px;
+                        width: 100%;
+                        max-width: 280px;
                         margin-top: 15px;
                         padding: 0 10px;
                         display: flex;
@@ -859,6 +1063,7 @@ const updateOverflowClass = () => {
                 display: flex;
                 flex-direction: column;
                 flex-wrap: nowrap;
+                margin-bottom: 15px;
 
                 p {
                     font-size: 1.25rem;
@@ -874,6 +1079,7 @@ const updateOverflowClass = () => {
                     @media screen and (max-width: 650px) {
                         margin: 5px 0;
                     }
+
                     input {
                         border: 1px solid var(--yellow_color);
                         border-radius: 16px;
@@ -904,7 +1110,18 @@ const updateOverflowClass = () => {
                 border: 1px solid var(--orange_color);
             }
 
+            .auxiliary_block {
+                img {
+                    max-width: 450px;
+                }
+            }
+
             @media screen and (max-width: 1050px) {
+                .auxiliary_block {
+                    img {
+                        display: none;
+                    }
+                }
 
                 .line,
                 .line_date {
@@ -912,29 +1129,16 @@ const updateOverflowClass = () => {
                 }
             }
 
-            .axiliary_block {
-
-                img {
-                    max-width: 450px;
-                }
-            }
-
-            @media screen and (max-width: 1050px) {
-                .axiliary_block {
-
-                    img {
-                        display: none;
-                    }
-                }
-            }
-
             .selected_block_wrapper {
                 width: 100%;
                 max-width: 300px;
+                height: 100%;
+                max-height: 400px;
                 display: flex;
                 flex-direction: column;
                 flex-wrap: nowrap;
                 padding: 15px 25px;
+
 
                 div {
                     margin: 10px 0;
@@ -946,7 +1150,10 @@ const updateOverflowClass = () => {
 
                 @media screen and (max-width: 1050px) {
                     max-width: 100%;
-                    padding: 0;
+                    padding: 5px;
+                    max-height: 250px;
+                    border: 1px solid var(--yellow_color);
+                    border-radius: 5px;
 
                     div {
                         margin: 10px 0;
@@ -1032,8 +1239,7 @@ const updateOverflowClass = () => {
             }
 
             .send {
-                width: 200px;
-                padding: 10px;
+                padding: 10px 15px;
                 border: 2px solid var(--orange_color);
                 border-radius: 15px;
                 background-color: var(--yellow_color);
@@ -1043,6 +1249,52 @@ const updateOverflowClass = () => {
 
         button:hover {
             cursor: pointer;
+        }
+
+        @media screen and (max-width: 650px) {
+            padding: 15px 10px;
+
+            .choose_appointment_wrapper {
+                .choose_appointment {
+                    .choose_service_block {
+                        .service {
+                            font-size: 1rem;
+
+                            .service_name {
+                                text-align: left;
+                            }
+                        }
+
+                        .main_service_wrapper {
+                            .includes_block {
+                                text-align: left;
+                            }
+                        }
+                    }
+
+                    span {
+
+                        .button,
+                        .button_selected {
+                            padding: 10px 15px;
+                        }
+                    }
+                }
+
+                .choose_appointment_date {
+                    padding: 15px 0;
+                }
+
+                .time_block {
+                    .time {
+                        padding: 5px 10px;
+                    }
+                }
+            }
+
+            .reverse {
+                flex-direction: column-reverse;
+            }
         }
     }
 }
@@ -1056,7 +1308,73 @@ const updateOverflowClass = () => {
     padding: 10px !important;
     border-radius: 10px;
 }
+
 .buttonError {
     background-color: #ff3f3f !important;
+}
+
+.scrollable_service {
+    height: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+    position: relative;
+
+   
+
+} 
+@media screen and (min-width: 1050px) {
+    .scrollable_service{
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::after {
+            content: ">>";
+            position: sticky;
+            left: 100%;
+            bottom: 0px;
+            display: block;
+            width: 25px;
+            height: 25px;
+            color: var(--orange_color);
+            rotate: 90deg;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    }
+}
+.scrollable_selected_service {
+    height: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+    position: relative;
+
+   
+
+} 
+@media screen and (min-width: 1050px) {
+    .scrollable_selected_service{
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::after {
+            content: ">>";
+            position: sticky;
+            left: 100%;
+            bottom: -20px;
+            display: block;
+            width: 25px;
+            height: 25px;
+            color: var(--orange_color);
+            rotate: 90deg;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    }
 }
 </style>

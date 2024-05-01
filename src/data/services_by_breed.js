@@ -7,14 +7,6 @@ export const services_by_breed = {
                     serviceName: 'Гігієна + купання для котиків',
                     servicePrice: 500
                 },
-                haircut: {
-                    serviceName: 'Стрижка',
-                    servicePrice: 650
-                },
-                combing: {
-                    serviceName: 'Вичісування',
-                    servicePrice: 650
-                }
             }
         },
         mainKun: {
@@ -40,14 +32,6 @@ export const services_by_breed = {
                 hygiene: {
                     serviceName: 'Гігієна + купання для котиків',
                     servicePrice: 450
-                },
-                haircut: {
-                    serviceName: 'Стрижка',
-                    servicePrice: 650
-                },
-                combing: {
-                    serviceName: 'Вичісування',
-                    servicePrice: 650
                 }
             }
         },

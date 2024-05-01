@@ -113,9 +113,9 @@ updateMonth();
 
 <style scoped>
 .calendar {
-    width: 300px;
+    width: 280px;
     border-radius: 5px;
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .header {
