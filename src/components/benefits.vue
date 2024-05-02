@@ -82,7 +82,7 @@
 
             .benefits_point {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-between;
                 height: 100%;
@@ -139,7 +139,7 @@
         margin-top: 125px;
     }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
     .benefits_wrapper {
         .benefits_block {
             .text_wrapper {
@@ -152,6 +152,7 @@
                 .benefits_point {
                     flex-wrap: nowrap;
                     align-items: center;
+                    flex-direction: column;
                     max-height: 100%;
                     span {
                         p {
