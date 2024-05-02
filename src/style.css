@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'Neucha';
-  src: url('./assets/') format('truetype');
+  src: url('./assets/fonts/Neucha-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Montserrat';
-  src: url('./fonts/Montserrat.ttf') format('truetype');
+  src: url('./assets/fonts/Montserrat.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
