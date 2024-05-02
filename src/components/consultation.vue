@@ -6,15 +6,15 @@
             <form method="post" class="consultation_form" @submit="sendConsultationLead($event)">
                 <span>
                     <label for="name" class="montserrat_medium">Ваше ім`я</label>
-                    <input type="text" :class="{'error': emptyError === 'name'}" name="name" placeholder="Ім`я" required v-model="leadData.name">
+                    <input type="text" :class="{'error': emptyError === 'name'}" name="name" placeholder="Ім`я" required v-model="leadData.name" autocomplete="name">
                 </span>
                 <span>
                     <label for="phone" class="montserrat_medium">Номер телефону</label>
-                    <input type="phone" :class="{'error': emptyError === 'phone'}" name="phone" autocomplete="off" placeholder="Номер телефону" required v-model="leadData.phone">
+                    <input type="phone" :class="{'error': emptyError === 'phone'}" name="phone" autocomplete="tel" placeholder="Номер телефону" required v-model="leadData.phone" >
                 </span>
                 <span>
                     <label for="email" class="montserrat_medium">E-mail</label>
-                    <input type="email" :class="{'error': emptyError === 'email'}" name="email" placeholder="E-mail" required v-model="leadData.email">
+                    <input type="email" :class="{'error': emptyError === 'email'}" name="email" autocomplete="email" placeholder="E-mail" required v-model="leadData.email">
                 </span>
                 <span class="desc">
                     <label for="desc" class="montserrat_medium">Ваше запитання</label>
