@@ -108,6 +108,12 @@ window.addEventListener('resize', () => {
     opacity: 1;
     transform: rotateY(0) scale(1.1);
 }
+.carousel__prev {
+    left: -20px;
+    border: 1px solid var(--orange_color);
+    border-radius: 50%;
+    color: var(--orange_color);
+}
 
 .carousel__item {
     border: 2px solid var(--orange_color);

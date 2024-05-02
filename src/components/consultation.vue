@@ -2,7 +2,7 @@
     <div class="consultation" id="consultation">
         <h2 class="neucha">Отримайте безкоштовну консультацію</h2>
         <div class="consultation_wrapper">
-            <img src="../assets/3.png" alt="Професійний догляд за улюбленцем в Одесі - Профессиональный уход за питомцем в Одессе">
+            <img src="../assets/3.webp" alt="Професійний догляд за улюбленцем в Одесі - Профессиональный уход за питомцем в Одессе">
             <form method="post" class="consultation_form" @submit="sendConsultationLead($event)">
                 <span>
                     <label for="name" class="montserrat_medium">Ваше ім`я</label>

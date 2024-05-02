@@ -143,7 +143,7 @@
                         </div>
                     </div>
                     <div class="auxiliary_block">
-                        <img src="../assets/5.png" alt="">
+                        <img src="../assets/5.webp" alt="">
                     </div>
                 </template>
                 <template v-if="step === 2">
@@ -214,7 +214,7 @@
                         </div>
                     </div>
                     <div class="auxiliary_block">
-                        <img src="../assets/6.png" alt="">
+                        <img src="../assets/6.webp" alt="">
                     </div>
                 </template>
                 <template v-if="step === 3">
@@ -314,7 +314,7 @@
                     <div class="thanks_block">
                         <h3 class="montserrat_semibold">Дякуємо, що обрали <br><span class="neucha">GroomGuru</span>!
                         </h3>
-                        <img src="../assets/8.png" alt="">
+                        <img src="../assets/8.webp" alt="">
                     </div>
                 </template>
             </div>
@@ -336,6 +336,7 @@ import Calendar from './calandar.vue'
 import { sendMessageToTelegramBot } from '../methods/sendLead'
 import { deleteError } from '../methods/deleteError.js'
 import { generalServices } from '../data/general_services.js'
+import validator from 'validator';
 
 const step = ref(1)
 const showDropdown = ref(false);
@@ -358,13 +359,14 @@ const animalData = ref({
     userPhone: 380,
     petName: ''
 })
-const sendButtonText = ref('Записатись')
-const buttonError = ref(false)
-const emptyError = ref('')
+const sendButtonText = ref('Записатись');
+const buttonError = ref(false);
+const emptyError = ref('');
 const breedBlock = ref(null);
 const serviceBlock = ref(null);
-const selectedServices = ref(null)
-const outputOrder = ref(false)
+const selectedServices = ref(null);
+const outputOrder = ref(false);
+const isValidPhone = ref(false);
 
 
 const filterBreeds = () => {
@@ -468,6 +470,7 @@ const prevBlock = () => {
 
 const nextBlock = () => {
     const data = animalData.value
+    
     switch (step.value) {
         case 1:
             if (data.animalType === '') {
@@ -505,11 +508,12 @@ const nextBlock = () => {
                 return
             }
         case 4:
+            validatePhone()
             if (data.userName === '') {
                 emptyError.value = 'name';
                 deleteError(emptyError)
                 return
-            } else if (data.userPhone === '' || isNaN(Number(data.userPhone)) || data.userPhone.length !== 12) {
+            } else if (!isValidPhone) {
                 emptyError.value = 'phone'
                 deleteError(emptyError)
                 return
@@ -524,6 +528,11 @@ const nextBlock = () => {
         default:
             break;
     }
+}
+
+
+const validatePhone = () => {
+    isValidPhone.value = validator.isMobilePhone(animalData.value.userPhone, 'uk-UA')
 }
 
 async function sendLeadWrapper() {
