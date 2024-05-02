@@ -18,19 +18,19 @@
                 </p>
                 <div class="benefits_point">
                     <span>
-                        <img src="../assets/1 иконка.png" alt="">
+                        <img fetchpriority="low" src="../assets/1 иконка.png" alt="">
                         <p class="neucha">Професійний <br> догляд</p>
                     </span>
                     <span>
-                        <img src="../assets/2 иконка.png" alt="">
+                        <img fetchpriority="low" src="../assets/2 иконка.png" alt="">
                         <p class="neucha">Комфортна зона <br> очікування</p>
                     </span>
                     <span>
-                        <img src="../assets/3 иконка.png" alt="">
+                        <img fetchpriority="low" src="../assets/3 иконка.png" alt="">
                         <p class="neucha">Сертифіковані <br> грумери</p>
                     </span>
                     <span>
-                        <img src="../assets/4 иконка.png" alt="">
+                        <img fetchpriority="low" src="../assets/4 иконка.png" alt="">
                         <p class="neucha">Чистота та <br> дезифукція</p>
                     </span>
                 </div>
