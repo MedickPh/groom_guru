@@ -111,7 +111,7 @@ onBeforeMount(() => {
             }
 
             .active {
-                color: var(--yellow_color)
+                color: var(--orange_color)
             }
         }
 
