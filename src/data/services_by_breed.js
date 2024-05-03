@@ -134,6 +134,10 @@ export const services_by_breed = {
         borderTerrier: {
             name: "Бортер тер'єр",
             services: {
+                hygiene: {
+                    serviceName: "Гігієна",
+                    servicePrice: 700,
+                },
                 trimming: {
                     serviceName: "Тримінг",
                     servicePrice: 950,
@@ -143,6 +147,10 @@ export const services_by_breed = {
         australianTerrier: {
             name: "Австралійський тер'єр",
             services: {
+                hygiene: {
+                    serviceName: "Гігієна",
+                    servicePrice: 700,
+                },
                 trimming: {
                     serviceName: "Тримінг",
                     servicePrice: 900,

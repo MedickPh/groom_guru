@@ -9,7 +9,7 @@
                         <div class="review-item-container">
                             <div class="name-wrapper">
                                 <div class="avatar-wrap">
-                                    <img src="../assets/avatar.svg" alt="Аватар кліента щщщо залишив відгук">
+                                    <img src="../assets/avatar.svg" alt="Аватар кліента що залишив відгук">
                                 </div>
                                 <div class="name neucha">
                                     <span>{{ item.name }}</span>
