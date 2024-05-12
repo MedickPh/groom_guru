@@ -5,32 +5,32 @@
         </h2>
         <div class="benefits_block">
             <div class="img_wrapper">
-                <img src="../assets/2.webp" alt="Миття собаки в салоні грумінгу - Мытье собаки в салоне груминга">
+                <img loading="lazy" src="../assets/2.webp" alt="Миття собаки в салоні грумінгу - Мытье собаки в салоне груминга">
             </div>
             <div class="text_wrapper">
                 <h3 class="montserrat_medium">
                     GroomGuru - комфортний і просторий салон краси для собак та котиків
                 </h3>
-                <p class="montserrat_regular">
+                <p class="montserrat-regular">
                     Ми використовуємо тільки якісну косметику та професійне обладнання для догляду за тваринами. Наші
                     грумери - сертифіковані спеціалісти з великим досвідом роботи, які точно знайдуть підхід до Вашого
                     улюбленця!
                 </p>
                 <div class="benefits_point">
                     <span>
-                        <img fetchpriority="low" src="../assets/1 иконка.png" alt="">
+                        <img loading="lazy" fetchpriority="low" src="../assets/1 иконка.png" alt="">
                         <p class="neucha">Професійний <br> догляд</p>
                     </span>
                     <span>
-                        <img fetchpriority="low" src="../assets/2 иконка.png" alt="">
+                        <img loading="lazy" fetchpriority="low" src="../assets/2 иконка.png" alt="">
                         <p class="neucha">Комфортна зона <br> очікування</p>
                     </span>
                     <span>
-                        <img fetchpriority="low" src="../assets/3 иконка.png" alt="">
+                        <img loading="lazy" fetchpriority="low" src="../assets/3 иконка.png" alt="">
                         <p class="neucha">Сертифіковані <br> грумери</p>
                     </span>
                     <span>
-                        <img fetchpriority="low" src="../assets/4 иконка.png" alt="">
+                        <img loading="lazy" fetchpriority="low" src="../assets/4 иконка.png" alt="">
                         <p class="neucha">Чистота та <br> дезифукція</p>
                     </span>
                 </div>

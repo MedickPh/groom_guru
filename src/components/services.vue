@@ -6,7 +6,7 @@
                 <button :class="animalType === 'dogs' ? 'active' : ''" @click="changeAnimalType('dogs')">Собака</button>
                 <button :class="animalType === 'cats' ? 'active' : ''" @click="changeAnimalType('cats')">Кішка</button>
             </div>
-            <div class="services_menu montserrat_regular">
+            <div class="services_menu montserrat-regular">
                 <button :class="activeService === key ? 'active_button' : ''"
                     v-for="(item, key) of generalServices[animalType]['allServices']" :key="key"
                     @click="changeServiceList(key)">
@@ -49,7 +49,7 @@
                 </div>
                 <button @click="$emit('open')">Записатись зараз</button>
             </div>
-            <img src="../assets/4.webp" alt="Догляд за шерстю в салоні грумінгу для тварин - Уход за шерстью в груминг-салоне для животных">
+            <img loading="lazy" src="../assets/4.webp" alt="Догляд за шерстю в салоні грумінгу для тварин - Уход за шерстью в груминг-салоне для животных">
         </div>
     </div>
 </template>

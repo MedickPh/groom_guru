@@ -18,7 +18,7 @@ export const generalServices = {
                         servicePrice: null
                     },
                     combingTheUndercoat: {
-                        serviceName:'Вичісування підшестя',
+                        serviceName:'Вичісування підшестя (за потреби)',
                         servicePrice: null
                     },
                     eyeAndEarCare: {
@@ -162,10 +162,6 @@ export const generalServices = {
                         serviceName:'Догляд за очіма та вухами',
                         servicePrice: null
                     },
-                    analCleaning: {
-                        serviceName:'Очищення параанальних залоз (за потреби)',
-                        servicePrice: null
-                    },
                     bathing: {
                         serviceName:'Купання (шампунь та кондиціонер)',
                         servicePrice: null
@@ -206,10 +202,6 @@ export const generalServices = {
                     },
                     eyeAndEarCare: {
                         serviceName:'Догляд за очіма та вухами',
-                        servicePrice: null
-                    },
-                    analCleaning: {
-                        serviceName:'Очищення параанальних залоз',
                         servicePrice: null
                     },
                     breedHaircut: {

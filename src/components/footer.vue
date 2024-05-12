@@ -16,9 +16,9 @@
             </p>
         </div>
         <div class="social_media">
-            <a href="#"><img src="../assets/free-icon-facebook-733547.png" alt=""></a>
-            <a href="#"><img src="../assets/free-icon-instagram-15713420.png" alt=""></a>
-            <a href="#"><img src="../assets/Telegram.png" alt=""></a>
+            <a href="#"><img loading="lazy" src="../assets/free-icon-facebook-733547.png" alt=""></a>
+            <a href="#"><img loading="lazy" src="../assets/free-icon-instagram-15713420.png" alt=""></a>
+            <a href="#"><img loading="lazy" src="../assets/Telegram.png" alt=""></a>
         </div>
     </div>
 </template>

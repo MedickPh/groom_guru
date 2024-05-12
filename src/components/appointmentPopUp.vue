@@ -134,7 +134,7 @@
                                 <input type="text" v-model="searchTerm" @click="filterBreeds" @input="filterBreeds"
                                     required placeholder="Введіть назву породи" class="standard_input" />
                                 <ul v-if="showDropdown">
-                                    <li v-for="(breed, key) in filteredBreeds" :key="key" @click="selectBreed(breed)">
+                                    <li class="montserrat-regular" v-for="(breed, key) in filteredBreeds" :key="key" @click="selectBreed(breed)">
                                         {{ breed.name }}
                                     </li>
                                 </ul>
@@ -143,7 +143,7 @@
                         </div>
                     </div>
                     <div class="auxiliary_block">
-                        <img src="../assets/5.webp" alt="">
+                        <img loading="lazy" src="../assets/5.webp" alt="">
                     </div>
                 </template>
                 <template v-if="step === 2">
@@ -153,7 +153,7 @@
                                 :class="changeServiceType === 'main' ? 'button_selected' : 'button', emptyError === 'service' ? 'error' : ''"
                                 @click="changeServiceType = 'main'">Оберіть основну послугу</button>
                             <button class="montserrat_medium"
-                                :class="changeServiceType === 'extra' ? 'button_selected' : 'button'"
+                                :class="changeServiceType === 'extra' ? 'button_selected' : 'button', emptyError === 'service' ? 'error' : ''"
                                 @click="changeServiceType = 'extra'">Оберіть дотаткову послугу</button>
                         </span>
                         <div class="choose_block choose_service_block" v-if="changeServiceType === 'main'"
@@ -164,12 +164,12 @@
                                 <div class="main_service">
                                     <div class="service_name">
                                         <span :class="isChosen === key ? 'checkpoint_active' : 'checkpoint'"></span>
-                                        <p>{{ item.serviceName }}</p>
+                                        <p class="montserrat-regular">{{ item.serviceName }}</p>
                                     </div>
                                     <p>від {{ item.servicePrice }} грн</p>
                                 </div>
                                 <div class="includes_block" v-if="isChosen === key">
-                                    <p class="montserrat_regular">Що входить:</p>
+                                    <p class="montserrat-regular">Що входить:</p>
                                     <div class="service_list"
                                         v-for="(service, index) of generalServices[animalData.animalType].services[key].list"
                                         :key="index">
@@ -193,7 +193,7 @@
                                 -329 147 -537 186 -94 18 -448 26 -545 13z" />
                                                 </g>
                                             </svg>
-                                            <p class="text montserrat_regular">{{ service.serviceName }}</p>
+                                            <p class="text montserrat-regular">{{ service.serviceName }}</p>
                                         </span>
                                     </div>
                                 </div>
@@ -201,20 +201,20 @@
                         </div>
                         <div :class="{ 'choose_block': true, 'choose_service_block': true, 'scrollable_service': true }"
                             v-else>
-                            <div class="service"
+                            <div :class= "{'service': true, 'error': emptyError === 'service'}" 
                                 v-for="(item, key) in generalServices[animalData.animalType].services.additionalBenefits.list"
                                 :key="key" @click="setExtraService(item, key)">
                                 <div class="service_name">
                                     <span
                                         :class="animalData.extraServices.findIndex(e => e.serviceName === item.serviceName) !== -1 ? 'checkpoint_active' : 'checkpoint'"></span>
-                                    <p>{{ item.serviceName }}</p>
+                                    <p class="montserrat-regular">{{ item.serviceName }}</p>
                                 </div>
-                                <p>від {{ item.servicePrice }} грн</p>
+                                <p >від {{ item.servicePrice }} грн</p>
                             </div>
                         </div>
                     </div>
                     <div class="auxiliary_block">
-                        <img src="../assets/6.webp" alt="">
+                        <img loading="lazy" src="../assets/6.webp" alt="">
                     </div>
                 </template>
                 <template v-if="step === 3">
@@ -314,7 +314,7 @@
                     <div class="thanks_block">
                         <h3 class="montserrat_semibold">Дякуємо, що обрали <br><span class="neucha">GroomGuru</span>!
                         </h3>
-                        <img src="../assets/8.webp" alt="">
+                        <img loading="lazy" src="../assets/8.webp" alt="">
                     </div>
                 </template>
             </div>
@@ -486,7 +486,7 @@ const nextBlock = () => {
                 return
             }
         case 2:
-            if (data.mainService === null) {
+            if (data.mainService === null && data.extraServices.length === 0) {
                 emptyError.value = 'service';
                 deleteError(emptyError)
                 return
@@ -1015,6 +1015,7 @@ const updateOverflowClass = () => {
                         li {
                             cursor: pointer;
                             padding: 0 10px;
+                            font-weight: 600;
                         }
 
                         li:hover {

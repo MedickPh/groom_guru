@@ -2,7 +2,7 @@
     <div class="header_wrapper">
         <div class="header_block">
             <div class="img_block">
-                <img fetchpriority="low" src="/src/assets/GroomGuru.png" alt="Company logo">
+                <img loading="lazy" fetchpriority="low" src="/src/assets/GroomGuru.png" alt="Company logo">
             </div>
             <div class="contacts_block montserrat_medium">
                 <div class="address">
@@ -285,6 +285,7 @@ const emit = defineEmits()
             a {
                 color: black;
                 display: flex;
+                justify-content: center;
                 svg {
                     width: 100%;
                     height: 100%;

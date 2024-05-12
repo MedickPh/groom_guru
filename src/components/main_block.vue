@@ -5,8 +5,8 @@
             <p class="montserrat_medium">Ми знайдемо підхід до Ваших пухнастих улюбленців</p>
             <button class="montserrat_medium" @click="$emit('open')">Записатись зараз</button>
         </div>
-        <div class="img_block">
-            <img fetchpriority="high" src="../assets/1.webp" alt="Стрижка собаки в салоні грумінгу в Одесі - Стрижка собаки в груминг-салоне в Одессе">
+        <div class="img_block" id="">
+            <img fetchpriority="high" src="../assets/1.png" alt="Стрижка собаки в салоні грумінгу в Одесі - Стрижка собаки в груминг-салоне в Одессе">
         </div>
     </div>
 </template>
@@ -67,12 +67,19 @@
             h1 {
                 font-size: 5rem;
                 margin-top: 15%;
-                color: var(--dark_color);
+                color: #fff ;
+                -webkit-text-shadow: -2px 0px 10px rgba(0, 0, 0, 1);
+                -moz-text-shadow: -2px 0px 10px rgba(0, 0, 0, 1);
+                text-shadow: -2px 0px 10px rgba(0, 0, 0, 1);
             }
 
             p {
                 color: white !important;
                 padding-left: 10px;
+                -webkit-text-shadow: -2px 0px 10px rgba(0, 0, 0, 1);
+                -moz-text-shadow: -2px 0px 10px rgba(0, 0, 0, 1);
+                text-shadow: -2px 0px 10px rgba(0, 0, 0, 1);
+
             }
         }
     }
