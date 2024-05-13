@@ -40,9 +40,7 @@ const isShowNavButtons = ref(true)
 
 
 function getScreenSize() {
-    if (window.innerWidth <= 500) {
-        isShowNavButtons.value = false
-    }
+
     if (window.innerWidth <= 790) {
         return 1
     } else if (window.innerWidth <= 970) { 

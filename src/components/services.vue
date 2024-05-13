@@ -64,24 +64,24 @@ const activeService = ref('hygiene')
 const changeAnimalType = (type) => {
     animalType.value = type
     activeService.value = 'hygiene'
-    localStorage.setItem('type', type)
+    // localStorage.setItem('type', type)
 }
 
 const changeServiceList = (item) => {
     activeService.value = item
-    localStorage.setItem('service_menu', item)
+    // localStorage.setItem('service_menu', item)
     
 }
 
 
-onBeforeMount(() => {
-    if (localStorage.getItem('type')) {
-        animalType.value = localStorage.getItem('type');
-    }
-    if (localStorage.getItem('service_menu')) {
-        activeService.value = localStorage.getItem('service_menu');
-    }
-});
+// onBeforeMount(() => {
+//     if (localStorage.getItem('type')) {
+//         animalType.value = localStorage.getItem('type');
+//     }
+//     if (localStorage.getItem('service_menu')) {
+//         activeService.value = localStorage.getItem('service_menu');
+//     }
+// });
 
 onMounted(() => {
     const activeButton = document.getElementById(activeService.value);

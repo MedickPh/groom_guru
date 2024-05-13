@@ -151,8 +151,12 @@
                     flex-direction: column;
                     max-height: 100%;
                     span {
+                        img {
+                            width: 65px;
+                            height: 65px;
+                        }
                         p {
-                            font-size: 24px;
+                            font-size: 1.5rem;
                             width: 150px;
                         }
                     }

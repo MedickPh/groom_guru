@@ -137,6 +137,11 @@
                         </g>
 
                     </svg><span> +380 96 312 61 12</span></a>
+                    <div class="social_media">
+                        <a href="https://www.tiktok.com/@groom.guru" target="_blank"><img loading="lazy" src="../assets/tt.webp" alt=""></a>
+                        <a href="https://www.instagram.com/groom__guru" target="_blank"><img loading="lazy" src="../assets/free-icon-instagram-15713420.png" alt=""></a>
+                        <a href="#" target="_blank"><img loading="lazy" src="../assets/Telegram.png" alt=""></a>
+                    </div>
             </div>
         </transition>
 
@@ -293,6 +298,18 @@ const emit = defineEmits()
                     max-height: 25px;
                     fill: var(--yellow_color);
                     margin-right: 10px;
+                }
+            }
+
+            .social_media {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                a {
+                    border: none;
+                    img{
+                        width: 35px;
+                    }
                 }
             }
         }
