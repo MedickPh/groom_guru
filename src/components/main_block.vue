@@ -6,13 +6,25 @@
             <button class="montserrat_medium" @click="$emit('open')">Записатись зараз</button>
         </div>
         <div class="img_block" id="">
-            <img  fetchpriority="high" src="../assets/1.webp" alt="Стрижка собаки в салоні грумінгу в Одесі - Стрижка собаки в груминг-салоне в Одессе">
+            <img
+                :src="largeImage"
+                alt="Стрижка собаки в салоні грумінгу в Одесі - Стрижка собаки в груминг-салоне в Одессе"
+                loading="lazy"
+                ref="preloadImage"
+                />
+            <!-- <img  fetchpriority="high" src="../assets/1test.webp" alt="Стрижка собаки в салоні грумінгу в Одесі - Стрижка собаки в груминг-салоне в Одессе"> -->
         </div>
     </div>
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+import largeImage from '../assets/1test.webp';
 
+onMounted(() => {
+    const preloadImage = ref(null);
+    preloadImage.value.src = largeImage;
+});
 </script>
 
 <style scoped lang="scss">
