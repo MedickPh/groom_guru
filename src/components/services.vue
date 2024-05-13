@@ -207,6 +207,9 @@ onMounted(() => {
                 font-size: 1.5rem;
                 margin-bottom: 10px;
                 border-bottom: 1px solid var(--yellow_color);
+                :last-child {
+                    margin-left: 10px;
+                }
             }
 
             button {
@@ -251,10 +254,17 @@ onMounted(() => {
 
     .services_wrapper .services_block .services {
         .price_block{
-            font-size: 1.25rem;
+            font-size: 1rem;
         }
-        .service_list p {
-            margin-left: 0;
+        .service_list {
+                p {
+                    margin-left: 10px;
+                    font-size: 1rem
+                }
+                span p {
+                    font-size: 1rem;
+                    margin-left: 0;
+                }
         }
     }
 }

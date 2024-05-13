@@ -177,7 +177,7 @@ export const generalServices = {
                 },
                 pricing: {
                     optionOne: {
-                        title:'Маленькі породи (до 10 кг) від 500',
+                        title:'Маленькі породи (до 10 кг) від',
                         price: '500 грн'
                     },
                     optionTwo: {
@@ -227,7 +227,7 @@ export const generalServices = {
                 },
                 pricing: {
                     optionOne: {
-                        title:'Маленькі породи (до 10 кг) від 500',
+                        title:'Маленькі породи (до 10 кг) від',
                         price: '650 грн'
                     },
                     optionTwo: {
@@ -269,7 +269,7 @@ export const generalServices = {
                 },
                 pricing: {
                     optionOne: {
-                        title:'Маленькі породи (до 10 кг) від 500',
+                        title:'Маленькі породи (до 10 кг) від',
                         price: '500 грн'
                     },
                     optionTwo: {
@@ -307,7 +307,7 @@ export const generalServices = {
                 },
                 pricing: {
                     optionOne: {
-                        title:'Маленькі породи (до 10 кг) від 500',
+                        title:'Маленькі породи (до 10 кг) від',
                         price: '500 грн'
                     },
                     optionTwo: {

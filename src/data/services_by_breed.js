@@ -36,7 +36,7 @@ export const services_by_breed = {
             }
         },
         other: {
-            name: 'Усі породи',
+            name: 'Усі інші породи',
             services: {
                 hygiene: {
                     serviceName: 'Гігієна + купання для котиків',

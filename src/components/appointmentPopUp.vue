@@ -209,7 +209,7 @@
                                         :class="animalData.extraServices.findIndex(e => e.serviceName === item.serviceName) !== -1 ? 'checkpoint_active' : 'checkpoint'"></span>
                                     <p class="montserrat-regular">{{ item.serviceName }}</p>
                                 </div>
-                                <p >від {{ item.servicePrice }} грн</p>
+                                <p class="montserrat-regular"> від {{ item.servicePrice }} грн</p>
                             </div>
                         </div>
                     </div>
@@ -233,14 +233,14 @@
                     <div class="line"></div>
                     <div :class="{ 'error': emptyError === 'time', 'auxiliary_block': true, 'time_block': true }">
                         <template v-if="animalData.date !== null && outputOrder === false">
-                            <div :class="{ 'time': true, 'time_chosen': chosenTime === key }"
+                            <div :class="{ 'time': true, 'time_chosen': chosenTime === key, 'montserrat-regular': true  }"
                                 v-for="(item, key) in timeForAppointment" :key="key" @click="setTime(item, key)">
                                 {{ item }}
                             </div>
                         </template>
                         <template v-if="animalData.date !== null && outputOrder === true">
                             <p class="montserrat_semibold">Оберіть бажаний час</p>
-                            <div :class="{ 'time': true, 'time_chosen': chosenTime === key }"
+                            <div :class="{ 'time': true, 'time_chosen': chosenTime === key, 'montserrat-regular': true }"
                                 v-for="(item, key) in timeForAppointment" :key="key" @click="setTime(item, key)">
                                 {{ item }}
                             </div>
@@ -280,7 +280,7 @@
                             <p class="montserrat_semibold">Порода:</p>
                             <p class="montserrat_medium">{{ animalData.breed.name }}</p>
                         </div>
-                        <div class="selected_service">
+                        <div class="selected_service" v-if="animalData.mainService">
                             <p class="montserrat_semibold">Основна послуга:</p>
                             <p class="montserrat_medium">
                                 {{ animalData.mainService.serviceName }}
@@ -289,7 +289,7 @@
                                 грн
                             </p>
                         </div>
-                        <div class="selected__extra_service">
+                        <div class="selected__extra_service" v-if="animalData.extraServices.length >0">
                             <p class="montserrat_semibold">Додаткові послуги:</p>
                             <p class="montserrat_medium" v-for="item in animalData.extraServices">
                                     {{ item.serviceName }}
@@ -890,7 +890,7 @@ const updateOverflowClass = () => {
                         p {
                             width: 100%;
                             max-width: 120px;
-                            min-width: 100px;
+                            min-width: 120px;
                         }
 
                         .includes_block {
@@ -1194,11 +1194,15 @@ const updateOverflowClass = () => {
                 }
 
                 .time {
-                    padding: 10px 15px;
+                    width: 75px;
+                    height: 45px;
+                    display: flex;
                     margin: 10px;
-                    border: 2px solid #02020280;
+                    border: 2px solid rgba(2, 2, 2, 0.5019607843);
                     border-radius: 15px;
                     cursor: pointer;
+                    justify-content: center;
+                    align-items: center;
                 }
 
                 .time_chosen {
@@ -1301,7 +1305,8 @@ const updateOverflowClass = () => {
 
                 .time_block {
                     .time {
-                        padding: 5px 10px;
+                        width: 65px;
+                        height: 40px;
                     }
                 }
             }
