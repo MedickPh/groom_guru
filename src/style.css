@@ -1,6 +1,6 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-/* @font-face {
+@font-face {
   font-family: 'Montserrat_regular';
   src: url('./assets/fonts/Montserrat-Regular.ttf') format('truetype');
   font-weight: 400;
@@ -26,7 +26,7 @@
   src: url('./assets/fonts/Neucha-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-} */
+}
 
 
 
@@ -125,32 +125,19 @@ textarea:not([rows]) {
 }
 
 .neucha {
-  /* font-family: "Neucha", cursive;
-  font-weight: 400;
-  font-style: normal; */
+  font-family: "Neucha", cursive;
 }
-.montserrat_regular> {
-  /* font-family: "Montserrat_regular", sans-serif; */
-  /* font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal; */
-}
+
 .montserrat-regular {
-  /* font-family: "Montserrat_regular", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal; */
+  font-family: "Montserrat_regular", sans-serif;
+
 }
 .montserrat_medium {
-  /* font-family: "Montserrat_medium", sans-serif; */
-  /* font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal; */
+  font-family: "Montserrat_medium", sans-serif;
+
 }
 .montserrat_semibold {
-  /* font-family: "Montserrat_semibold", sans-serif; */
-  /* font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal; */
+  font-family: "Montserrat_semibold", sans-serif;
+
 }
 
