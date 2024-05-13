@@ -45,7 +45,7 @@
 
 <style scoped lang="scss">
 .benefits_wrapper {
-    margin-top: 300px;
+    margin-top: 30px;
 
     h2 {
         font-size: 3rem;
@@ -134,11 +134,7 @@
         }
     }
 }
-@media screen and (max-width: 629px) {
-    .benefits_wrapper{
-        margin-top: 125px;
-    }
-}
+
 @media screen and (max-width: 500px) {
     .benefits_wrapper {
         .benefits_block {

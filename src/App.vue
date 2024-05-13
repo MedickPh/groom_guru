@@ -9,6 +9,7 @@ import Reviews from "./components/reviews.vue";
 import Consultation from "./components/consultation.vue";
 import Footer from "./components/footer.vue"
 import AppointmentPopUp from "./components/appointmentPopUp.vue";
+import MapSection from './components/mapSection.vue';
 
 const isShowAppointment = ref(false)
 
@@ -32,6 +33,7 @@ watch(isShowAppointment, setBodyOverflow);
 <template>
   <Header @scroll:to="scrollToComponent"/>
   <Main_block @open="isShowComponent(true)"/>
+  <MapSection/>
   <Benefits/>
   <Services @open="isShowComponent(true)"/>
   <Reviews/>

@@ -6,8 +6,8 @@
                 <button :class="animalType === 'dogs' ? 'active' : ''" @click="changeAnimalType('dogs')">Собака</button>
                 <button :class="animalType === 'cats' ? 'active' : ''" @click="changeAnimalType('cats')">Кішка</button>
             </div>
-            <div class="services_menu montserrat-regular">
-                <button :class="activeService === key ? 'active_button' : ''"
+            <div class="services_menu montserrat-regular" id="menu">
+                <button :class="activeService === key ? 'active_button' : ''" :id="key"
                     v-for="(item, key) of generalServices[animalType]['allServices']" :key="key"
                     @click="changeServiceList(key)">
                     {{ item }}
@@ -38,14 +38,14 @@
                                 -329 147 -537 186 -94 18 -448 26 -545 13z" />
                             </g>
                         </svg>
-                        <p class="text">{{ item.serviceName }}</p>
+                        <p class="text montserrat-regular">{{ item.serviceName }}</p>
                     </span>
-                    <p class="price" v-if="item.servicePrice !== null">- {{ item.servicePrice }} грн.</p>
+                    <p class="price montserrat-regular" v-if="item.servicePrice !== null">- {{ item.servicePrice }} грн.</p>
                 </div>
                 <div class="price_block" v-if="generalServices[animalType]['services'][activeService]['pricing']"
                     v-for="item of generalServices[animalType]['services'][activeService]['pricing']">
-                    <p>{{ item.title }}</p>
-                    <p>{{ item.price }}</p>
+                    <p class="montserrat-regular">{{ item.title }}</p>
+                    <p class="montserrat-regular">{{ item.price }}</p>
                 </div>
                 <button @click="$emit('open')">Записатись зараз</button>
             </div>
@@ -55,8 +55,9 @@
 </template>
 
 <script setup>
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
 import { generalServices } from '../data/general_services'
+
 const animalType = ref('dogs')
 const activeService = ref('hygiene')
 
@@ -69,7 +70,7 @@ const changeAnimalType = (type) => {
 const changeServiceList = (item) => {
     activeService.value = item
     localStorage.setItem('service_menu', item)
-    console.log(activeService.value);
+    
 }
 
 
@@ -80,7 +81,16 @@ onBeforeMount(() => {
     if (localStorage.getItem('service_menu')) {
         activeService.value = localStorage.getItem('service_menu');
     }
-})
+});
+
+onMounted(() => {
+    const activeButton = document.getElementById(activeService.value);
+    if (activeButton) {
+        activeButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+});
+
+
 </script>
 
 <style scoped lang="scss">
@@ -153,6 +163,10 @@ onBeforeMount(() => {
         .services {
             width: 100%;
             padding: 25px;
+
+            @media screen and (max-width: 600px) {
+                padding: 25px 0;
+            }
 
             .service_list {
                 display: flex;

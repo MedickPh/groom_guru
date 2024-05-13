@@ -118,7 +118,7 @@
                 <template v-if="step === 1">
                     <div class="choose_appointment">
                         <div class="choose_block">
-                            <p>Ваш вихованець</p>
+                            <p class="montserrat-regular">Ваш вихованець</p>
                             <span :class="emptyError === 'type' ? 'error' : ''">
                                 <button class="montserrat_medium"
                                     :class="animalData.animalType === 'dogs' ? 'button_selected' : 'button'"
@@ -166,10 +166,10 @@
                                         <span :class="isChosen === key ? 'checkpoint_active' : 'checkpoint'"></span>
                                         <p class="montserrat-regular">{{ item.serviceName }}</p>
                                     </div>
-                                    <p>від {{ item.servicePrice }} грн</p>
+                                    <p class="montserrat-regular">від {{ item.servicePrice }} грн</p>
                                 </div>
                                 <div class="includes_block" v-if="isChosen === key">
-                                    <p class="montserrat-regular">Що входить:</p>
+                                    <p class="montserrat-regular includes">Що входить:</p>
                                     <div class="service_list"
                                         v-for="(service, index) of generalServices[animalData.animalType].services[key].list"
                                         :key="index">
@@ -889,11 +889,15 @@ const updateOverflowClass = () => {
 
                         p {
                             width: 100%;
-                            max-width: 100px;
+                            max-width: 120px;
                             min-width: 100px;
                         }
 
                         .includes_block {
+
+                            .includes {
+                                max-width: 150px;
+                            }
                             .service_list {
                                 display: flex;
                                 flex-direction: row;
