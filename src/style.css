@@ -130,25 +130,25 @@ textarea:not([rows]) {
   font-style: normal;
 }
 .montserrat_regular> {
-  font-family: "Montserrat_regular", sans-serif;
+  /* font-family: "Montserrat_regular", sans-serif; */
   /* font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal; */
 }
 .montserrat-regular {
-  font-family: "Montserrat_regular", sans-serif;
+  /* font-family: "Montserrat_regular", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  font-style: normal;
+  font-style: normal; */
 }
 .montserrat_medium {
-  font-family: "Montserrat_medium", sans-serif;
+  /* font-family: "Montserrat_medium", sans-serif; */
   /* font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal; */
 }
 .montserrat_semibold {
-  font-family: "Montserrat_semibold", sans-serif;
+  /* font-family: "Montserrat_semibold", sans-serif; */
   /* font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal; */
