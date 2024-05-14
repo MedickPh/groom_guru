@@ -6,6 +6,12 @@
                 <button :class="animalType === 'dogs' ? 'active' : ''" @click="changeAnimalType('dogs')">Собака</button>
                 <button :class="animalType === 'cats' ? 'active' : ''" @click="changeAnimalType('cats')">Кішка</button>
             </div>
+            <button type="button" class="carousel__prev" aria-label="Navigate to previous slide" @click="prevService()">
+                    <svg class="carousel__icon" viewBox="0 0 24 24" role="img" aria-label="Arrow pointing to the left">
+                        <title>Arrow pointing to the left</title>
+                        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"></path>
+                    </svg>
+                </button>
             <div class="services_menu montserrat-regular" id="menu">
                 <button :class="activeService === key ? 'active_button' : ''" :id="key"
                     v-for="(item, key) of generalServices[animalType]['allServices']" :key="key"
@@ -13,6 +19,12 @@
                     {{ item }}
                 </button>
             </div>
+            <button type="button" class="carousel__next" aria-label="Navigate to next slide" @click="nextService()">
+                <svg class="carousel__icon" viewBox="0 0 24 24" role="img" aria-label="Arrow pointing to the right">
+                    <title>Arrow pointing to the right</title>
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"></path>
+                </svg>
+            </button>
         </div>
 
         <div class="services_block">
@@ -55,41 +67,56 @@
 </template>
 
 <script setup>
-import { onBeforeMount, onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { generalServices } from '../data/general_services'
 
 const animalType = ref('dogs')
 const activeService = ref('hygiene')
+const services = ref(Object.keys(generalServices[animalType.value]['allServices']))
 
 const changeAnimalType = (type) => {
     animalType.value = type
     activeService.value = 'hygiene'
-    // localStorage.setItem('type', type)
 }
 
 const changeServiceList = (item) => {
     activeService.value = item
-    // localStorage.setItem('service_menu', item)
     
 }
 
-
-// onBeforeMount(() => {
-//     if (localStorage.getItem('type')) {
-//         animalType.value = localStorage.getItem('type');
-//     }
-//     if (localStorage.getItem('service_menu')) {
-//         activeService.value = localStorage.getItem('service_menu');
-//     }
-// });
-
-onMounted(() => {
-    const activeButton = document.getElementById(activeService.value);
-    if (activeButton) {
-        activeButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+const nextService = () => {
+    const currentService = activeService.value;
+    const currentServiceIndex = services.value.indexOf(currentService) 
+    if (currentServiceIndex < services.value.length-1) {
+        activeService.value = services.value[currentServiceIndex +1]
+        scrollActiveButtonIntoView()
     }
+}
+
+const prevService = () => {
+    const currentService = activeService.value;
+    const currentServiceIndex = services.value.indexOf(currentService) 
+    if (currentServiceIndex >=1) {
+        activeService.value = services.value[currentServiceIndex -1]
+        scrollActiveButtonIntoView()
+    }
+}
+
+watch(animalType, (newValue) => {
+    services.value = Object.keys(generalServices[animalType.value]['allServices']);
+    scrollActiveButtonIntoView()
 });
 
+
+onMounted(() => {
+    scrollActiveButtonIntoView()
+});
+function scrollActiveButtonIntoView() {
+    const activeButton = document.getElementById(activeService.value);
+    if (activeButton) {
+        activeButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+}
 
 </script>
 
@@ -101,6 +128,7 @@ onMounted(() => {
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
 
         h2 {
             font-size: 5rem;
@@ -125,13 +153,56 @@ onMounted(() => {
             }
         }
 
+        .carousel__prev, .carousel__next{
+                box-sizing: border-box;
+                background: #ffffff;
+                border: 2px solid #d87501;
+                border-radius: 50%;
+                width: var(--vc-nav-width);
+                height: var(--vc-nav-height);
+                text-align: center;
+                font-size: var(--vc-nav-height);
+                padding: 0;
+                color: #d87501;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                cursor: pointer;
+                margin: 0 10px;
+                top: auto;
+                bottom: 15px;
+                transform: translateY(-50%);
+
+                @media screen and (max-width: 600px) {
+                    bottom: 10px;
+                }
+            }
+
+            .carousel__next {
+                right: -10px;
+
+                @media screen and (max-width: 600px) {
+                    right: -20px;
+                }
+            }
+
+            .carousel__prev {
+                left: -10px;
+
+                @media screen and (max-width: 600px) {
+                    left: -20px;
+                }
+            }
+
         .services_menu {
             width: 100%;
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
             justify-content: space-evenly;
-            margin: 15px;
+            margin: 15px 0;
+            padding: 0 25px;
 
 
             button {
@@ -141,6 +212,7 @@ onMounted(() => {
                 font-size: 1.45rem;
                 background: transparent;
             }
+
             @media screen and (max-width: 600px) {
                 button {
                     margin: 0;
@@ -244,9 +316,11 @@ onMounted(() => {
 
     .services_wrapper .header .services_menu {
         overflow-x: scroll;
+        width: 90%;
+        padding: 0 10px;
     }
 
-    .services_wrapper .header .services_menu :last-child {
+    .services_wrapper .header .services_menu #additionalBenefits {
         width: 100%;
         min-width: 250px;
         max-width: 250px

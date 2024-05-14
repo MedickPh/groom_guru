@@ -1,26 +1,15 @@
 import { ref } from "vue";
 export const reviews = ref([
     {
-        name: "Jayesh Patil",
-        avatar: "/src/assets/avatar.svg",
-        text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore etdolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex\n" +
-        "            ea commodo consequat.",
+        avatar: "/src/assets/review1.webp",
+        text: `Я просто в захваті від процедури у вашому салоні .  Пухнастий дуже пахне , та добре підстрижений . Дякую за чистку зубів &#128571; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`,
     },
     {
-        name: "Jayesh Patil",
-        avatar: "/src/assets/avatar.svg",
-        text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et\n" +
-        "            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex\n" +
-        "            ea commodo consequat.",
+        avatar: "/src/assets/review2.webp",
+        text: `Мій пудель виглядає просто неймовірно після породної стрижки! Він як справжній аристократ, виблискує своєю шикарною стрижкою і витонченим стилем. Дуже вдячний грумеру за чудову роботу та турботу про мого улюбленця. Впевнений, що тепер ми будемо завжди обирати цей салон для нашого пуделя!`,
     },
     {
-        name: "Jayesh Patil",
-        avatar: "/src/assets/avatar.svg",
-        text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et\n" +
-        "            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex\n" +
-        "            ea commodo consequat.",
+        avatar: "/src/assets/review3.webp",
+        text:   `Я відвідала грумінг зі своєю собакою і залишилась в захваті! Все там було так чисто і охайно, прям як у лікарні! Дівчата, які там працюють, були такі приємні і уважні до мого песика. Вони чудово підійшли до нього і зробили все, щоб він почував себе комфортно. Вся процедура пройшла дуже гладко, і я дуже задоволена результатом! Обов'язково прийду сюди ще!`,
     },
 ]);

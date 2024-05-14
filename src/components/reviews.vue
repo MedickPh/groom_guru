@@ -1,22 +1,19 @@
 <template>
     <div class="reviews_wrapper" id="reviews">
-        <h2>Відгуки</h2>
+        <h2 class="montserrat_medium">Відгуки </h2>
         <div class="slider">
-            <Carousel :items-to-show="slidesToShow" :autoplay="3500" :wrap-around="true" :mouseDrag="true"
+            <Carousel :items-to-show="slidesToShow" :autoplay="false" :wrap-around="true" :mouseDrag="true"
                 :touchDrag="true" :pauseAutoplayOnHover="false" :transition="700">
                 <Slide v-for="item in reviews" :key="item">
                     <div class="carousel__item">
                         <div class="review-item-container">
                             <div class="name-wrapper">
                                 <div class="avatar-wrap">
-                                    <img loading="lazy" src="../assets/avatar.svg" alt="Аватар кліента що залишив відгук">
-                                </div>
-                                <div class="name neucha">
-                                    <span>{{ item.name }}</span>
+                                    <img loading="lazy" :src="item.avatar" alt="Аватар кліента що залишив відгук">
                                 </div>
                             </div>
                             <div class="review-text-container">
-                                <p class="montserrat_medium">{{ item.text }}</p>
+                                <p class="montserrat_medium" v-html="item.text"></p>
                             </div>
                         </div>
                     </div>
@@ -117,13 +114,20 @@ window.addEventListener('resize', () => {
     border: 2px solid var(--orange_color);
     border-radius: 16px;
     margin: 25px 10px;
+    height: 400px;
+
+    @media screen and (max-width: 520px) {
+        height: auto;
+    }
 
     .review-item-container {
         padding: 15px 20px;
+        height: 100%;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         align-items: center;
+        justify-content: center;
 
         .name-wrapper {
             display: flex;
@@ -158,7 +162,7 @@ window.addEventListener('resize', () => {
         margin: 25px 0;
     }
     .carousel__item {
-        margin: 20px;
+        margin: 30px 10px;
     }
 }
 </style>
