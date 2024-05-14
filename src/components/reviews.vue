@@ -87,7 +87,7 @@ window.addEventListener('resize', () => {
 });
 </script>
 
-<style scoped lang="scss">
+<style >
 .reviews_wrapper {
     display: flex;
     flex-direction: column;
