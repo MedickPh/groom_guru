@@ -4,21 +4,52 @@
         <div class="slider">
             <Carousel :items-to-show="slidesToShow" :autoplay="3500" :wrap-around="true" :mouseDrag="true"
                 :touchDrag="true" :pauseAutoplayOnHover="false" :transition="700">
-                <Slide v-for="item in reviews" :key="item">
+                <Slide key="1">
                     <div class="carousel__item">
                         <div class="review-item-container">
                             <div class="name-wrapper">
                                 <div class="avatar-wrap">
-                                    <img loading="lazy" :src="item.avatar" alt="Аватар кліента що залишив відгук">
+                                    <img loading="lazy" src="../assets/review1.webp" alt="Аватар кліента що залишив відгук">
                                 </div>
                             </div>
                             <div class="review-text-container">
-                                <p class="montserrat_medium" v-html="item.text"></p>
+                                <p class="montserrat_medium" >Я просто в захваті від процедури у вашому салоні .  Пухнастий дуже пахне , та добре підстрижений . Дякую за чистку зубів &#128571;</p>
                             </div>
                         </div>
                     </div>
                 </Slide>
-
+                <Slide key="2">
+                    <div class="carousel__item">
+                        <div class="review-item-container">
+                            <div class="name-wrapper">
+                                <div class="avatar-wrap">
+                                    <img loading="lazy" src="../assets/review2.webp" alt="Аватар кліента що залишив відгук">
+                                </div>
+                            </div>
+                            <div class="review-text-container">
+                                <p class="montserrat_medium">
+                                    Мій пудель виглядає просто неймовірно після породної стрижки! Він як справжній аристократ, виблискує своєю шикарною стрижкою і витонченим стилем. Дуже вдячний грумеру за чудову роботу та турботу про мого улюбленця. Впевнений, що тепер ми будемо завжди обирати цей салон для нашого пуделя!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Slide>
+                <Slide key="3">
+                    <div class="carousel__item">
+                        <div class="review-item-container">
+                            <div class="name-wrapper">
+                                <div class="avatar-wrap">
+                                    <img loading="lazy" src="../assets/review3.webp" alt="Аватар кліента що залишив відгук">
+                                </div>
+                            </div>
+                            <div class="review-text-container">
+                                <p class="montserrat_medium">
+                                    Я відвідала грумінг зі своєю собакою і залишилась в захваті! Все там було так чисто і охайно, прям як у лікарні! Дівчата, які там працюють, були такі приємні і уважні до мого песика. Вони чудово підійшли до нього і зробили все, щоб він почував себе комфортно. Вся процедура пройшла дуже гладко, і я дуже задоволена результатом! Обов'язково прийду сюди ще!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Slide>
                 <template #addons v-if="isShowNavButtons === true">
                     <Navigation />
                 </template>
