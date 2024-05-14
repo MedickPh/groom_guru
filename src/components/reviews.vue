@@ -134,11 +134,25 @@ window.addEventListener('resize', () => {
     opacity: 1;
     transform: rotateY(0) scale(1.1);
 }
-.carousel__prev {
-    left: -20px;
-    border: 1px solid var(--orange_color);
-    border-radius: 50%;
-    color: var(--orange_color);
+.carousel__prev,
+.carousel__next {
+  box-sizing: content-box;
+  background: #ffffff;
+  border: 2px solid #d87501;
+  border-radius: 50%;  width: var(--vc-nav-width);
+  height: var(--vc-nav-height);
+  text-align: center;
+  font-size: var(--vc-nav-height);
+  padding: 0;
+  color: #d87501;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  cursor: pointer;
+  margin: 0 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .carousel__item {
