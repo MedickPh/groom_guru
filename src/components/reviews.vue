@@ -2,7 +2,7 @@
     <div class="reviews_wrapper" id="reviews">
         <h2 class="montserrat_medium">Відгуки </h2>
         <div class="slider">
-            <Carousel :items-to-show="slidesToShow" :autoplay="false" :wrap-around="true" :mouseDrag="true"
+            <Carousel :items-to-show="slidesToShow" :autoplay="3500" :wrap-around="true" :mouseDrag="true"
                 :touchDrag="true" :pauseAutoplayOnHover="false" :transition="700">
                 <Slide v-for="item in reviews" :key="item">
                     <div class="carousel__item">
