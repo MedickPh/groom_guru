@@ -69,9 +69,9 @@ const isShowNavButtons = ref(true)
 
 function getScreenSize() {
 
-    if (window.innerWidth <= 790) {
+    if (window.innerWidth <= 820) {
         return 1
-    } else if (window.innerWidth <= 970) { 
+    } else if (window.innerWidth <= 1190) { 
         return 2
     } else { 
         return 3
@@ -207,7 +207,7 @@ window.addEventListener('resize', () => {
         margin: 25px 0;
     }
     .carousel__item {
-        margin: 30px 10px;
+        margin: 30px 20px;
     }
 }
 </style>

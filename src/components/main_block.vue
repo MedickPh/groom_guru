@@ -101,6 +101,10 @@
                 text-shadow: -2px 0px 10px rgba(0, 0, 0, 1);
             }
 
+            .map span{
+                padding: 0;
+            }
+
         }
     }
 }
