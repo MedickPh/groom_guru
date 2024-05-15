@@ -344,7 +344,7 @@ const searchTerm = ref('')
 const changeServiceType = ref('main')
 const isChosen = ref(null)
 const chosenTime = ref(null)
-const timeForAppointment = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00']
+const timeForAppointment = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
 const monthNames = [
     'Січня', 'Лютого', 'Березня', 'Квітня', 'Травня', 'Червня',
     'Липня', 'Серпня', 'Вересня', 'Жовтня', 'Листопада', 'Грудня'
@@ -1186,7 +1186,7 @@ const updateOverflowClass = () => {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                justify-content: space-between;
+                justify-content: center;
 
                 p {
                     width: 100%;
