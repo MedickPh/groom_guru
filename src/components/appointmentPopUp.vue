@@ -395,6 +395,7 @@ const selectBreed = (breed) => {
 
 const changeAnimalType = (type) => {
     animalData.value.animalType = type
+    searchTerm.value = ''
 }
 
 const setMainService = (item, key) => {
@@ -540,9 +541,9 @@ async function sendLeadWrapper() {
     button.disabled = true;
     try {
         const data = animalData.value
-        const extraServices = data.extraServices.map(service => service.serviceName + ' за ' + service.servicePrice + 'грн').join(', ');
-        const message = `Привіт! Я ${data.animalType === 'dogs' ? 'песик' : 'котик'} на імя "${data.petName}" породи ${data.breed.name}. \nХочу прийти до вас ${data.date.date} ${monthNames[data.date.month]} о ${data.date.time}  ${data.mainService? `на процедуру ${data.mainService.serviceName} .\nНа сайті вказано що це вартує від ${data.mainService.servicePrice} грн.`: ''}. ${extraServices !== ''? `Також цікавлять такі додаткові послуги ${extraServices}`: ''} \nЗв\`яжіться будь-ласка з моїм власником для уточнення всіх данних.\nЙого/Її звати "${data.userName}", ось телефон - ${data.userPhone}. \nДо зустрічі!`
-        await sendMessageToTelegramBot(message)
+        const extraServices = data.extraServices.map(service => service.serviceName + ' за ' + service.servicePrice + 'грн').join('\n');
+        const newMessage = `Заявка на запис ${data.mainService? `\n${data.mainService.serviceName} - ${data.mainService.servicePrice} грн.`: ''} ${extraServices !== ''? `\n${extraServices}`: ''} \n${data.userName} \n${data.userPhone} \n${data.breed.name} ${data.petName} \n${data.date.date} ${monthNames[data.date.month]} о ${data.date.time}`
+        await sendMessageToTelegramBot(newMessage)
         step.value++
     } catch (error) {
         sendButtonText.value = 'Щось не так, спробуйте ще';

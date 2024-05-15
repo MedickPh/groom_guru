@@ -78,8 +78,8 @@ async function sendConsultationLead() {
     button.disabled = true;
 
     try {
-        const message = `Привіт! \nМене звати "${data.name}"${data.text === null? '': `, я хотів/ла запитати - \n "${data.text}"`}.\nЗв\`яжіться зі мною будь-ласка по телефону "${data.phone}", або напишіть на пошту "${data.email}"`
-        await sendMessageToTelegramBot(message)
+        const newMessage = `Заявка на консультацію \n${data.name} \n${data.phone} \n${data.email} ${data.text === null? '': `\n${data.text}`}`
+        await sendMessageToTelegramBot(newMessage)
         sendButtonText.value = 'Відправлено!'
         setTimeout(() => {
             button.disabled = false;
