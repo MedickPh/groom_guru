@@ -541,7 +541,7 @@ async function sendLeadWrapper() {
     try {
         const data = animalData.value
         const extraServices = data.extraServices.map(service => service.serviceName + ' за ' + service.servicePrice + 'грн').join(', ');
-        const message = `Привіт! Я ${data.animalType === 'dogs' ? 'песик' : 'котик'} на імя "${data.petName}" породи ${data.breed.name}. \nХочу прийти до вас ${data.date.date} ${monthNames[data.date.month]} о ${data.date.time} на процедуру "${data.mainService.serviceName}".\nНа сайті вказано що це вартує від ${data.mainService.servicePrice} грн. ${extraServices !== ''? `Також цікавлять такі додаткові послуги ${extraServices}`: ''} \nЗв\`яжіться будь-ласка з моїм власником для уточнення всіх данних.\nЙого/Її звати "${data.userName}", ось телефон - ${data.userPhone}. \nДо зустрічі!`
+        const message = `Привіт! Я ${data.animalType === 'dogs' ? 'песик' : 'котик'} на імя "${data.petName}" породи ${data.breed.name}. \nХочу прийти до вас ${data.date.date} ${monthNames[data.date.month]} о ${data.date.time}  ${data.mainService? `на процедуру ${data.mainService.serviceName} .\nНа сайті вказано що це вартує від ${data.mainService.servicePrice} грн.`: ''}. ${extraServices !== ''? `Також цікавлять такі додаткові послуги ${extraServices}`: ''} \nЗв\`яжіться будь-ласка з моїм власником для уточнення всіх данних.\nЙого/Її звати "${data.userName}", ось телефон - ${data.userPhone}. \nДо зустрічі!`
         await sendMessageToTelegramBot(message)
         step.value++
     } catch (error) {
@@ -1215,6 +1215,9 @@ const updateOverflowClass = () => {
                 flex-direction: column;
                 flex-wrap: nowrap;
                 align-items: center;
+                width: 100%;
+                height: 100%;
+                max-height: 400px;
 
                 h3 {
                     margin-bottom: 15px;
@@ -1224,6 +1227,11 @@ const updateOverflowClass = () => {
                     span {
                         font-weight: 600;
                     }
+                }
+
+                img {
+                    height: 100%;
+                    max-height: 300px;
                 }
             }
         }
