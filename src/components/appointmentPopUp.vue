@@ -542,7 +542,7 @@ async function sendLeadWrapper() {
     try {
         const data = animalData.value
         const extraServices = data.extraServices.map(service => service.serviceName + ' за ' + service.servicePrice + 'грн').join('\n');
-        const newMessage = `Заявка на запис ${data.mainService? `\n${data.mainService.serviceName} - ${data.mainService.servicePrice} грн.`: ''} ${extraServices !== ''? `\n${extraServices}`: ''} \n${data.userName} \n${data.userPhone} \n${data.breed.name} ${data.petName} \n${data.date.date} ${monthNames[data.date.month]} о ${data.date.time}`
+        const newMessage = `Заявка на запис ${data.mainService? `\n${data.mainService.serviceName} - ${data.mainService.servicePrice} грн.`: ''} ${extraServices !== ''? `\n${extraServices}`: ''} \n${data.userName} \n${data.userPhone} \n${data.breed.name} ${data.petName} \n${data.date.date} ${monthNames[data.date.month]} о ${data.date.time} \n${window.location.href}`
         await sendMessageToTelegramBot(newMessage)
         step.value++
     } catch (error) {
