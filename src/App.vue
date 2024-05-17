@@ -29,8 +29,9 @@ const setBodyOverflow = (value) => {
 }
 
 watch(isShowAppointment, setBodyOverflow);
+
 onMounted(()=>{
-  emit('scroll:to', 'header')
+  scrollToComponent('header')
 })
 </script>
 
