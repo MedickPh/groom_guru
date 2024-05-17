@@ -152,11 +152,7 @@ import { ref, defineEmits,onMounted } from 'vue'
 
 const isShowMobileMenu = ref(false)
 const emit = defineEmits()
-onMounted(()=>{
-    setTimeout(() => {
-        emit('scroll:to', 'header')
-    }, 1);
-})
+
 </script>
 <style scoped lang="scss">
 .header_wrapper {
