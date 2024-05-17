@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import Header from "./components/header.vue";
 import Main_block  from "./components/main_block.vue"
@@ -22,12 +22,16 @@ const scrollToComponent = (component) => {
     if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
 }
 const setBodyOverflow = (value) => {
     document.body.style.overflow = value ? 'hidden' : '';
 }
 
 watch(isShowAppointment, setBodyOverflow);
+onMounted(()=>{
+  emit('scroll:to', 'header')
+})
 </script>
 
 <template>

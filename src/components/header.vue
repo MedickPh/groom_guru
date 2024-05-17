@@ -1,5 +1,5 @@
 <template>
-    <div class="header_wrapper">
+    <div class="header_wrapper" id="header">
         <div class="header_block">
             <div class="img_block">
                 <img loading="lazy" fetchpriority="low" src="/src/assets/GroomGuru.png" alt="Company logo">
@@ -148,10 +148,15 @@
     </div>
 </template>
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits,onMounted } from 'vue'
 
 const isShowMobileMenu = ref(false)
 const emit = defineEmits()
+onMounted(()=>{
+    setTimeout(() => {
+        emit('scroll:to', 'header')
+    }, 1);
+})
 </script>
 <style scoped lang="scss">
 .header_wrapper {
