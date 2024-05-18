@@ -545,10 +545,11 @@ async function sendLeadWrapper() {
         const newMessage = `Заявка на запис ${data.mainService? `\n${data.mainService.serviceName} - ${data.mainService.servicePrice} грн.`: ''} ${extraServices !== ''? `\n${extraServices}`: ''} \n${data.userName} \n${data.userPhone} \n${data.breed.name} ${data.petName} \n${data.date.date} ${monthNames[data.date.month]} о ${data.date.time} \n${window.location.href}`
         await sendMessageToTelegramBot(newMessage)
         ttq.track('SubmitForm')
-        gtag('event', 'submit', {
-            'event_category': 'Form',
-            'event_label': 'Appointment Form'
-        });
+        gtag('event', 'form_submission', {
+            event_category: 'Form',
+            event_label: 'Appointment Form',
+            form_name: 'Appointment Form'
+            });
         step.value++
     } catch (error) {
         sendButtonText.value = 'Щось не так, спробуйте ще';

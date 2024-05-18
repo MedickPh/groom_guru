@@ -82,10 +82,11 @@ async function sendConsultationLead() {
         const newMessage = `Заявка на консультацію \n${data.name} \n${data.phone} ${data.text === null? '': `\n${data.text}`} \n${window.location.href}`
         await sendMessageToTelegramBot(newMessage)
         sendButtonText.value = 'Відправлено!'
-        gtag('event', 'submit', {
-            'event_category': 'Form',
-            'event_label': 'Consultation Form'
-        });
+        gtag('event', 'form_submission', {
+            event_category: 'Form',
+            event_label: 'Consultation Form',
+            form_name: 'Consultation Form'
+            });
         ttq.track('Contact')
         setTimeout(() => {
             button.disabled = false;
