@@ -12,10 +12,10 @@
                     <label for="phone" class="montserrat_medium">Номер телефону</label>
                     <input type="phone" :class="{'error': emptyError === 'phone'}" name="phone" autocomplete="tel" placeholder="Номер телефону" required v-model="leadData.phone" >
                 </span>
-                <span>
+                <!-- <span>
                     <label for="email" class="montserrat_medium">E-mail</label>
                     <input type="email" :class="{'error': emptyError === 'email'}" name="email" autocomplete="email" placeholder="E-mail" required v-model="leadData.email">
-                </span>
+                </span> -->
                 <span class="desc">
                     <label for="desc" class="montserrat_medium">Ваше запитання</label>
                     <textarea name="desc" cols="30" rows="10" placeholder="Ваше запитання"
@@ -37,7 +37,7 @@ import validator from 'validator';
 const leadData = ref({
     name: null,
     phone: null,
-    email: null,
+    // email: null,
     text: null
 })
 
@@ -70,17 +70,19 @@ async function sendConsultationLead() {
         emptyError.value = 'phone';
         deleteError(emptyError)
         return
-    } else if (!isValidEmail.value) {
-        emptyError.value = 'email';
-        deleteError(emptyError)
-        return
     }
+    // } else if (!isValidEmail.value) {
+    //     emptyError.value = 'email';
+    //     deleteError(emptyError)
+    //     return
+    // }
     button.disabled = true;
 
     try {
         const newMessage = `Заявка на консультацію \n${data.name} \n${data.phone} \n${data.email} ${data.text === null? '': `\n${data.text}`} \n${window.location.href}`
         await sendMessageToTelegramBot(newMessage)
         sendButtonText.value = 'Відправлено!'
+        ttq.track('Contact')
         setTimeout(() => {
             button.disabled = false;
             sendButtonText.value = 'Отримати консультацію'
