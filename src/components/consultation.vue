@@ -79,7 +79,7 @@ async function sendConsultationLead() {
     button.disabled = true;
 
     try {
-        const newMessage = `Заявка на консультацію \n${data.name} \n${data.phone} \n${data.email} ${data.text === null? '': `\n${data.text}`} \n${window.location.href}`
+        const newMessage = `Заявка на консультацію \n${data.name} \n${data.phone} ${data.text === null? '': `\n${data.text}`} \n${window.location.href}`
         await sendMessageToTelegramBot(newMessage)
         sendButtonText.value = 'Відправлено!'
         ttq.track('Contact')
