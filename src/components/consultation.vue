@@ -47,19 +47,19 @@ const emptyError = ref('')
 const isValidEmail = ref(false);
 const isValidPhone = ref(false)
 
-const validateEmail = () => {
-    isValidEmail.value = validator.isEmail(leadData.value.email);
-};
+// const validateEmail = () => {
+//     isValidEmail.value = validator.isEmail(leadData.value.email);
+// };
 
 const validatePhone = () => {
-    isValidPhone.value = validator.isMobilePhone(leadData.value.phone, 'uk-UA')
+    isValidPhone.value = validator.isMobilePhone(leadData.value.phone.trim(), 'uk-UA')
 }
 
 async function sendConsultationLead() {
     event.preventDefault()
     const button = document.getElementById('sendButton')
     const data = leadData.value
-    validateEmail()
+    // validateEmail()
     validatePhone()
 
     if (data.name === null || data.name.length <= 1) {
