@@ -39,8 +39,8 @@ onMounted(()=>{
   <Header @scroll:to="scrollToComponent"/>
   <Main_block @open="isShowComponent(true)"/>
   <MapSection/>
-  <Benefits/>
   <Services @open="isShowComponent(true)"/>
+  <Benefits/>
   <Reviews/>
   <Consultation/>
   <Footer @scroll:to="scrollToComponent"/>

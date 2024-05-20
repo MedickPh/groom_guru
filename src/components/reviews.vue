@@ -62,7 +62,6 @@
 import { ref, watchEffect } from 'vue'
 import { Carousel, Slide, Navigation } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
-import { reviews } from '../data/reviews';
 const slidesToShow = ref(3)
 const isShowNavButtons = ref(true)
 
@@ -93,6 +92,7 @@ window.addEventListener('resize', () => {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-top: 35px;
 }
 
 .carousel__slide {
