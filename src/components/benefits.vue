@@ -1,8 +1,8 @@
 <template>
     <div class="benefits_wrapper" id="benefits">
-        <h2 class="neucha">
+        <!-- <h2 class="neucha">
             Чому обирають GroomGuru?
-        </h2>
+        </h2> -->
         <div class="benefits_block">
             <div class="img_wrapper">
                 <img loading="lazy" src="../assets/2.webp" alt="Миття собаки в салоні грумінгу - Мытье собаки в салоне груминга">
@@ -57,7 +57,7 @@
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
-        margin-top: 15px;
+        margin-top: 25px;
 
         .img_wrapper {
             width: 100%;

@@ -1,6 +1,7 @@
 <template>
     <div class="map_section_wrapper">
-        <h2 class="neucha">Як нас знайти?</h2>
+        <h2 class="neucha">У самому серці Аркадії</h2>
+        <p class="montserrat_medium">Ми знаходимося за адресою Гагарінське плато 5б. Праворуч від нотаріуса, над відкритим паркінгом</p>
         <div class="map_section">
             <div class="gallery_wrapper">
             <Carousel :items-to-show="slidesToShow" :autoplay="2500" :wrap-around="true" :mouseDrag="true"
@@ -68,8 +69,11 @@ const slidesToShow = ref(1)
     text-align: center;
     h2 {
         font-size: 5rem;
-        margin-bottom: 25px;
-        
+        margin-bottom: 15px;
+    }
+    p {
+        margin-bottom: 35px;
+        font-size: 1.2rem;
     }
     .map_section {
     display: flex;
@@ -125,6 +129,7 @@ const slidesToShow = ref(1)
     .maps-wrapper {
         .show{
             display: none;
+            margin-bottom: 25px;
         }
         
         @media screen and (max-width: 1300px) {
