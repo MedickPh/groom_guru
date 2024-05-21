@@ -85,7 +85,7 @@ const slidesToShow = ref(1)
         flex-direction: column;
     }
 
-    .gallery_wrapper, .maps-wrapper {
+    .gallery_wrapper{
         flex: 1;
         width: 100%;
         max-width: 500px;
@@ -127,9 +127,17 @@ const slidesToShow = ref(1)
     }
 
     .maps-wrapper {
+        flex: 1;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 15px;
+
         .show{
             display: none;
             margin-bottom: 25px;
+        }
+        iframe:focus {
+            outline: none
         }
         
         @media screen and (max-width: 1300px) {
