@@ -67,6 +67,23 @@ export const services_by_breed = {
                 },
             },
         },
+        retriever: {
+            name: 'Ретрівер',
+            services: {
+                hygiene: {
+                    serviceName: "Гігієна",
+                    servicePrice: 1000,
+                },
+                haircut: {
+                    serviceName: "Стрижка",
+                    servicePrice: 1000,
+                },
+                combing: {
+                    serviceName: "Вичісування",
+                    servicePrice: 900,
+                },
+            },
+        },
         royalPoodle: {
             name: "Королівський пудель",
             services: {
