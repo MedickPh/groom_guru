@@ -88,6 +88,7 @@ async function sendConsultationLead() {
             form_name: 'Consultation Form'
             });
         ttq.track('Contact')
+        fbq('track', 'CompleteRegistration')
         setTimeout(() => {
             button.disabled = false;
             sendButtonText.value = 'Отримати консультацію'

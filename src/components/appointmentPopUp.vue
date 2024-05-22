@@ -550,6 +550,7 @@ async function sendLeadWrapper() {
             event_label: 'Appointment Form',
             form_name: 'Appointment Form'
             });
+        fbq('track', 'CompleteRegistration')
         step.value++
     } catch (error) {
         sendButtonText.value = 'Щось не так, спробуйте ще';
