@@ -31,7 +31,7 @@
                     </span>
                     <span>
                         <img loading="lazy" fetchpriority="low" src="../assets/4-иконка.webp" alt="">
-                        <p class="neucha">Чистота та <br> дезифукція</p>
+                        <p class="neucha">Чистота та <br> дезинфекція</p>
                     </span>
                 </div>
             </div>

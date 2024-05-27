@@ -56,14 +56,6 @@ const slidesToShow = ref(1)
 </script>
 
 <style lang="scss" scoped>
-.carousel__viewport {
-    perspective: none;
-}
-.carousel__slide {
-    opacity: 1;
-    transform: none;
-}
-
 .map_section_wrapper{
     margin-top: 300px;
     text-align: center;
@@ -175,5 +167,13 @@ const slidesToShow = ref(1)
             }
         }
     }
+}
+
+.carousel__viewport {
+    perspective: none;
+}
+.carousel__slide {
+    opacity: 1;
+    transform: none;
 }
 </style>

@@ -95,12 +95,13 @@ window.addEventListener('resize', () => {
     margin-top: 35px;
 }
 
-.carousel__slide {
-    padding: 5px;
-}
+// .carousel__slide {
+//     padding: 5px;
+// }
 
 .carousel__viewport {
     perspective: 2000px;
+    padding: 25px 0;
 }
 
 .carousel__track {
@@ -132,33 +133,33 @@ window.addEventListener('resize', () => {
 
 .carousel__slide--active {
     opacity: 1;
-    transform: rotateY(0) scale(1.1);
+    transform: rotateY(0deg) scale(1);
 }
 .carousel__prev,
 .carousel__next {
-  box-sizing: content-box;
-  background: #ffffff;
-  border: 2px solid #d87501;
-  border-radius: 50%;  width: var(--vc-nav-width);
-  height: var(--vc-nav-height);
-  text-align: center;
-  font-size: var(--vc-nav-height);
-  padding: 0;
-  color: #d87501;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  cursor: pointer;
-  margin: 0 10px;
-  top: 50%;
-  transform: translateY(-50%);
+    box-sizing: content-box;
+    background: #ffffff;
+    border: 2px solid #d87501;
+    border-radius: 50%;  width: var(--vc-nav-width);
+    height: var(--vc-nav-height);
+    text-align: center;
+    font-size: var(--vc-nav-height);
+    padding: 0;
+    color: #d87501;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    cursor: pointer;
+    margin: 0 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .carousel__item {
     border: 2px solid var(--orange_color);
     border-radius: 16px;
-    margin: 25px 10px;
+    margin: 0;
     height: 400px;
 
     @media screen and (max-width: 520px) {
