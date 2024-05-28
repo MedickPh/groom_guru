@@ -2,6 +2,11 @@
     <div class="map_section_wrapper">
         <h2 class="neucha">У самому серці Аркадії</h2>
         <p class="montserrat_medium">Ми знаходимося за адресою Гагарінське плато 5б. Праворуч від нотаріуса, над відкритим паркінгом</p>
+        <div class="social_media">
+            <a href="https://www.tiktok.com/@groom.guru" target="_blank"><img loading="lazy" src="../assets/tt.webp" alt=""></a>
+            <a href="https://www.instagram.com/groom__guru" target="_blank"><img loading="lazy" src="../assets/free-icon-instagram-15713420.png" alt=""></a>
+            <a href="#" target="_blank"><img loading="lazy" src="../assets/Telegram.png" alt=""></a>
+        </div>
         <div class="map_section">
             <div class="gallery_wrapper">
             <Carousel :items-to-show="slidesToShow" :autoplay="2500" :wrap-around="true" :mouseDrag="true"
@@ -66,6 +71,30 @@ const slidesToShow = ref(1)
     p {
         margin-bottom: 35px;
         font-size: 1.2rem;
+    }
+    .social_media {
+        display: none;
+        width: 100%;
+        max-width: 300px;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        margin: 0 auto;
+
+        @media screen and (max-width: 1450px) {
+            display: flex;
+        }
+
+        a {
+            margin: 0 10px;
+
+            cursor: pointer;
+
+            img {
+                width: 35px;
+                height: 35px;
+            }
+        }
     }
     .map_section {
     display: flex;
