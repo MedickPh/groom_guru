@@ -140,7 +140,7 @@
                     <div class="social_media">
                         <a href="https://www.tiktok.com/@groom.guru" target="_blank"><img loading="lazy" src="../assets/tt.webp" alt=""></a>
                         <a href="https://www.instagram.com/groom__guru" target="_blank"><img loading="lazy" src="../assets/free-icon-instagram-15713420.png" alt=""></a>
-                        <a href="#" target="_blank"><img loading="lazy" src="../assets/Telegram.png" alt=""></a>
+                        <a href="https://t.me/groomguru1" target="_blank"><img loading="lazy" src="../assets/Telegram.png" alt=""></a>
                     </div>
             </div>
         </transition>
