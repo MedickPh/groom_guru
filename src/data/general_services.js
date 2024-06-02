@@ -17,10 +17,10 @@ export const generalServices = {
                         serviceName:'Стрижка кігтів',
                         servicePrice: null
                     },
-                    combingTheUndercoat: {
-                        serviceName:'Вичісування підшестя (за потреби)',
-                        servicePrice: null
-                    },
+                    // combingTheUndercoat: {
+                    //     serviceName:'Вичісування підшестя (за потреби)',
+                    //     servicePrice: null
+                    // },
                     eyeAndEarCare: {
                         serviceName:'Догляд за очіма та вухами',
                         servicePrice: null
