@@ -32,6 +32,12 @@
                 <Slide key="7">
                     <div class="img7"></div>
                 </Slide>
+                <Slide key="8">
+                    <div class="img8"></div>
+                </Slide>
+                <Slide key="9">
+                    <div class="img9"></div>
+                </Slide>
             </Carousel>
         </div>
         <div class="maps-wrapper">
@@ -140,6 +146,12 @@ const slidesToShow = ref(1)
         }
         .img7 {
             background-image: url('../assets/carousel_7.webp');
+        }
+        .img8 {
+            background-image: url('../assets/carousel_8.webp');
+        }
+        .img9 {
+            background-image: url('../assets/carousel_9.webp');
         }
     }
 
