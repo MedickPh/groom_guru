@@ -33,7 +33,7 @@ export const generalServices = {
                 pricing: {
                     optionOne: {
                         title:'Усі породи від',
-                        price: '650 грн'
+                        price: '700 грн'
                     },
                     optionTwo: {
                         title:'Аггресивні від',

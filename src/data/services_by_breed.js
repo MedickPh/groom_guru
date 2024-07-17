@@ -5,7 +5,7 @@ export const services_by_breed = {
             services: {
                 hygiene: {
                     serviceName: 'Гігієна + купання для котиків',
-                    servicePrice: 500
+                    servicePrice: 650
                 },
             }
         },
@@ -14,15 +14,15 @@ export const services_by_breed = {
             services: {
                 hygiene: {
                     serviceName: 'Гігієна + купання для котиків',
-                    servicePrice: 650
+                    servicePrice: 700
                 },
                 haircut: {
                     serviceName: 'Стрижка',
-                    servicePrice: 700
+                    servicePrice: 850
                 },
                 combing: {
                     serviceName: 'Вичісування',
-                    servicePrice: 700
+                    servicePrice: 850
                 }
             }
         },
@@ -40,15 +40,15 @@ export const services_by_breed = {
             services: {
                 hygiene: {
                     serviceName: 'Гігієна + купання для котиків',
-                    servicePrice: 450
+                    servicePrice: 700
                 },
                 haircut: {
                     serviceName: 'Стрижка',
-                    servicePrice: 650
+                    servicePrice: 850
                 },
                 combing: {
                     serviceName: 'Вичісування',
-                    servicePrice: 650
+                    servicePrice: 850
                 }
             }
         },
